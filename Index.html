@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel Public School</title>
+  
+  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. CORE VARIABLES & RESET --- */
+    :root {
+      --bg-cream: #F9F8F4;
+      --bg-card: #FFFFFF;
+      --bg-dark: #1C1C1C;
+      
+      --text-main: #2C2C2C;
+      --text-muted: #666666;
+      --text-light: #E0E0E0;
+      
+      --accent: #C5A059; /* Gold */
+      --accent-hover: #A08040;
+      
+      --radius: 4px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
+      
+      --container: 1280px;
+      --nav-height: 80px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .section-padding { padding: 100px 0; }
+    .text-center { text-align: center; }
+    
+    /* --- 2. BUTTONS (Optimized) --- */
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: var(--text-main);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline {
+      border-color: var(--text-main);
+      color: var(--text-main);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background-color: var(--text-main);
+      color: #fff;
+    }
+    
+    .btn-white {
+      background-color: #fff;
+      color: var(--text-main);
+    }
+    .btn-white:hover {
+      background-color: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* --- 3. OPTIMIZED NAVBAR (FIXED & RESPONSIVE) --- */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: var(--nav-height);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      background: transparent; /* Starts transparent */
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      height: 70px; /* Shrinks slightly on scroll */
+    }
+    
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-img {
+      height: 50px;
+      width: auto;
+      display: block;
+      transition: height 0.3s;
+    }
+    
+    /* Header Scrolled state for logo */
+    header.scrolled .logo-img { height: 40px; }
+
+    /* Desktop Nav */
+    .nav-links { display: flex; gap: 30px; }
+    
+    .nav-links a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+      background: var(--accent); transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Mobile Toggle */
+    .mobile-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      z-index: 1002;
+    }
+
+    /* --- 4. HERO SECTION --- */
+    .hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; overflow: hidden;
+      text-align: center;
+    }
+    
+    .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: rgba(28, 28, 28, 0.4);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    .hero-tag {
+      display: inline-block; padding: 8px 16px; margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.6);
+      text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: 4.5rem; color: white; line-height: 1.1; margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .hero p {
+      font-size: 1.2rem; font-weight: 300; color: rgba(255,255,255,0.9); margin-bottom: 40px;
+    }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- 5. QUICK ACCESS BAR --- */
+    .quick-access {
+      background: white; padding: 40px 0; margin-top: -60px;
+      position: relative; z-index: 10;
+      box-shadow: var(--shadow-soft);
+      border-radius: var(--radius);
+      max-width: 1100px; margin-left: auto; margin-right: auto;
+    }
+    .qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+    .qa-item h4 { font-size: 1rem; margin-bottom: 5px; font-family: 'Lato'; }
+    .qa-item span { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* --- 6. PRINCIPAL MESSAGE --- */
+    .message-section { position: relative; }
+    .message-container {
+      display: flex; align-items: center; gap: 60px;
+    }
+    .msg-img-wrapper { flex: 1; position: relative; }
+    .msg-img-wrapper::after {
+      content: ''; position: absolute; top: 20px; left: -20px; width: 100%; height: 100%;
+      border: 1px solid var(--accent); z-index: -1;
+    }
+    .msg-content { flex: 1.5; }
+    .quote-icon { font-size: 4rem; color: var(--bg-cream); line-height: 0; font-family: serif; }
+    .msg-content p { font-size: 1.25rem; font-style: italic; color: var(--text-main); font-weight: 300; }
+
+    /* --- 7. SLIDER SECTION --- */
+    .slider-section {
+      background-color: var(--bg-dark);
+      color: white;
+      padding: 120px 0;
+    }
+    .slider-header { margin-bottom: 60px; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 20px; }
+    .slider-header h2 { color: white; font-size: 3rem; margin: 0; }
+    .slider-header p { color: var(--text-light); margin: 0; font-family: 'Lato', sans-serif; font-weight: 300; }
+
+    .slider-container {
+      position: relative; width: 100%; height: 600px;
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+    
+    .slider-track { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+    .slide { min-width: 100%; height: 100%; position: relative; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); transition: 0.5s; }
+    .slide:hover img { filter: brightness(1); transform: scale(1.05); }
+
+    .slide-content {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 60px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      transform: translateY(20px); opacity: 0; transition: 0.6s;
+    }
+    .slide.active .slide-content { transform: translateY(0); opacity: 1; }
+
+    .slider-dots { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 12px; }
+    .dot { width: 12px; height: 12px; border: 1px solid white; background: transparent; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .dot.active { background: white; }
+
+    /* --- 8. 3D GALLERY --- */
+    .gallery-intro { text-align: center; margin-bottom: 80px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    
+    .gallery-wrapper { perspective: 1500px; }
+    .carousel-stage {
+      position: relative; width: 100%; height: 550px;
+      display: flex; justify-content: center; align-items: center;
+      transform-style: preserve-3d;
+    }
+    
+    .carousel { 
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(0.1, 0.7, 0.1, 1);
+    }
+    
+    .card {
+      position: absolute; top: 50%; left: 50%;
+      width: 300px; height: 420px;
+      margin-top: -210px; margin-left: -150px;
+      background: white; padding: 15px; padding-bottom: 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border-radius: 4px;
+      backface-visibility: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.4s;
+    }
+    .card:hover { box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+    .card img { width: 100%; height: 100%; object-fit: cover; }
+    .card-caption {
+      margin-top: 15px; text-align: center;
+      font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-main);
+    }
+
+    /* --- 9. FOOTER --- */
+    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
+    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
+    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+
+    /* Modal */
+    .modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000;
+      display: none; align-items: center; justify-content: center; padding: 40px;
+    }
+    .modal.open { display: flex; }
+    .modal img { max-width: 100%; max-height: 90vh; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+    .close-modal { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+
+    /* --- RESPONSIVE MEDIA QUERIES --- */
+    @media (max-width: 900px) {
+      /* MOBILE NAV STYLES */
+      .mobile-toggle { display: block; }
+      
+      .nav-links {
+        position: fixed; top: 0; right: 0;
+        height: 100vh; width: 80%; max-width: 300px;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active { transform: translateX(0); }
+
+      .hero h1 { font-size: 2.5rem; }
+      .qa-grid { grid-template-columns: 1fr 1fr; }
+      .message-container { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .slider-container { height: 400px; }
+      .carousel-stage { height: 400px; }
+      
+      /* Resize cards for mobile */
+      .card { width: 220px; height: 300px; margin-top: -150px; margin-left: -110px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION (OPTIMIZED) -->
+  <header id="navbar">
+    <div class="container nav-flex">
+      <a href="index.html" class="logo">
+        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+      </a>
+      
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" style="color: var(--accent);">Home</a>
+        <a href="./About.html">About</a>
+        <a href="./Academics.html">Academics</a>
+        <a href="./Courses.html">Courses</a>
+        <a href="Events.html">Events</a>
+        <a href="./Admission.html">Admissions</a>
+        <a href="./Contact.html">Contact</a>
+      </nav>
+      
+      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION WITH CINEMATIC VIDEO -->
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline poster="./uns image/excel school.jpg">
+        <source src="./uns image/hero video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+      <div class="hero-overlay"></div>
+      
+      <div class="hero-content">
+        <span class="hero-tag">Est. 2013</span>
+        <h1>The Excel Education<br>System</h1>
+        <p>Forging leaders of tomorrow through a legacy of academic distinction and character building.</p>
+        <a href="./Admissions.html" class="btn btn-white">Apply for Admission</a>
+      </div>
+    </section>
+
+    <!-- QUICK ACCESS BAR -->
+    <div class="container">
+      <div class="quick-access">
+        <div class="qa-grid">
+          <div class="qa-item">
+            <h4>Admissions</h4>
+            <span>Open Now</span>
+          </div>
+          <div class="qa-item">
+            <h4>Virtual Tour</h4>
+            <span>Explore</span>
+          </div>
+          <div class="qa-item">
+            <h4>Academic Calendar</h4>
+            <span>Download</span>
+          </div>
+          <div class="qa-item">
+            <h4>Parent Portal</h4>
+            <span>Login</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRINCIPAL MESSAGE -->
+    <section class="section-padding message-section">
+      <div class="container message-container">
+        <div class="msg-img-wrapper">
+          <img src="./school img/IMG-20231221-WA0055.jpg" alt="Principal" style="border-radius: 4px; width:100%; height: auto; object-fit: cover;">
+        </div>
+        <div class="msg-content">
+          <div class="quote-icon">“</div>
+          <h2>Founder’s Message</h2>
+          <p>Education is not just about learning lessons; it is about building character, confidence, and purpose. Excel Public School was founded with a vision to nurture young minds in a caring environment where curiosity is encouraged and potential is discovered. We remain committed to shaping students who are not only academically strong, but also thoughtful, responsible, and prepared for the future.</p>
+          <br>
+          <a href="./About.html" style="color: var(--text-main); font-weight: 700; border-bottom: 2px solid var(--accent);">Read More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DARK GREY SLIDER (HIGHLIGHTS) -->
+    <section class="slider-section">
+      <div class="container">
+        <div class="slider-header">
+          <div>
+            <h2>Campus Highlights</h2>
+            <p>World-class infrastructure designed for holistic growth.</p>
+          </div>
+          <a href="./About.html" class="btn btn-outline" style="color: white; border-color: white;">View All Facilities</a>
+        </div>
+
+        <div class="slider-container" id="slider">
+          <div class="slider-track">
+            <div class="slide active">
+              <img src="./school img/gunnar-ridderstrom-srTwM4rqXcU-unsplash.jpg" alt="Library">
+              <div class="slide-content">
+                <h1 style="color: white;">The Grand Library</h1>
+                <p>A sanctuary of knowledge housing over 50,000 volumes.</p>
+              </div>
+            </div>
+            <div class="slide">
+              <img src="./school img/sport.jpg" alt="Sports">
+              <div class="slide-content">
+                <h1 style="color: white;">Olympic Sports Complex</h1>
+                <p>Facilities for swimming, athletics, and team sports.</p>
+              </div>
+            </div>
+            <div class="slide">
+              <img src="./school img/robotic.jpg" alt="Science">
+              <div class="slide-content">
+                <h1 style="color: white;">Innovation Labs</h1>
+                <p>Robotics, AI, and STEM integrated learning spaces.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider-dots" id="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D INTERACTIVE GALLERY -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="gallery-intro">
+          <span style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-size: 0.8rem; font-weight: 700;">Interactive Experience</span>
+          <h2 style="font-size: 2.5rem; margin: 10px 0;">Life at Excel</h2>
+          <p>Drag to explore moments from our vibrant campus life.</p>
+        </div>
+
+        <div class="gallery-wrapper">
+          <div class="carousel-stage">
+            <div class="carousel" id="carousel">
+              <!-- Cards injected via JS -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center" style="margin-top: 40px;">
+          <button class="btn btn-outline" id="rotLeft">Rotate Left</button>
+          <button class="btn btn-primary" id="rotRight">Rotate Right</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section style="background: white; padding: 120px 0; text-align: center; border-top: 1px solid #eee;">
+      <div class="container">
+        <h2 style="margin-bottom: 20px;">Begin the Journey</h2>
+        <p style="max-width: 600px; margin: 0 auto 40px; color: var(--text-muted);">Admissions for the upcoming academic year are now open. Schedule a personalized campus tour to experience the Excel difference.</p>
+        <a href="./Contact.html" class="btn btn-primary">Schedule a Visit</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
+          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Academics</h5>
+          <ul>
+            <li><a href="#">Primary School</a></li>
+            <li><a href="#">Middle School</a></li>
+            <li><a href="#">High School</a></li>
+            <li><a href="#">Web Development Course</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Admissions</h5>
+          <ul>
+            <li><a href="#">How to Apply</a></li>
+            <li><a href="#">Tuition Fees</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li>123 Scholar's Lane</li>
+            <li>Shigar, Baltistan 16000</li>
+            <li>+920000000000</li>
+            <li>info@epstissargmail.edu</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center" style="font-size: 0.8rem; color: #555;">
+        &copy; 2026 Excel Public School. Designed for Excellence.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <span class="close-modal">&times;</span>
+    <img id="modalImg" src="" alt="Full View">
+  </div>
+
+  <!-- JAVASCRIPT (OPTIMIZED & CLEAN) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- 1. NAVBAR SCROLL EFFECT ---
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // --- 2. MOBILE MENU TOGGLE ---
+      const toggleBtn = document.getElementById('mobile-toggle');
+      const navLinks = document.getElementById('nav-links');
+      
+      toggleBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+      });
+
+      // --- 3. SLIDER LOGIC ---
+      const track = document.querySelector('.slider-track');
+      const slides = Array.from(track.children);
+      const dotsContainer = document.getElementById('dots');
+      let idx = 0;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => moveTo(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      function moveTo(i) {
+        idx = i;
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        slides.forEach(s => s.classList.remove('active'));
+        slides[idx].classList.add('active');
+        document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+
+      setInterval(() => {
+        idx = (idx + 1) % slides.length;
+        moveTo(idx);
+      }, 6000);
+
+      // --- 4. 3D CAROUSEL LOGIC ---
+      const carousel = document.getElementById('carousel');
+      const images = [
+        { src: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600', title: 'Graduation Day' },
+        { src: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=600', title: 'Art Studio' },
+        { src: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=600', title: 'Chemistry Lab' },
+        { src: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600', title: 'Music Room' },
+        { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=600', title: 'Computer Lab' },
+        { src: 'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600', title: 'Sports Day' }
+      ];
+
+      const cardW = 300;
+      const count = images.length;
+      const angle = 360 / count;
+      const radius = Math.round((cardW / 2) / Math.tan(Math.PI / count)) + 20;
+      let rot = 0;
+
+      images.forEach((img, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.transform = `rotateY(${i * angle}deg) translateZ(${radius}px)`;
+        
+        card.innerHTML = `
+          <img src="${img.src}" alt="${img.title}">
+          <div class="card-caption">${img.title}</div>
+        `;
+        
+        card.onclick = () => openModal(img.src);
+        carousel.appendChild(card);
+      });
+
+      function rotateCarousel() {
+        carousel.style.transform = `translateZ(-${radius}px) rotateY(${rot}deg)`;
+      }
+
+      document.getElementById('rotRight').addEventListener('click', () => { rot -= angle; rotateCarousel(); });
+      document.getElementById('rotLeft').addEventListener('click', () => { rot += angle; rotateCarousel(); });
+
+      // Drag Interaction
+      let isDragging = false, startX = 0;
+      const stage = document.querySelector('.carousel-stage');
+      stage.addEventListener('mousedown', (e) => {
+        isDragging = true; startX = e.clientX; carousel.style.transition = 'none';
+      });
+      window.addEventListener('mouseup', () => {
+        if(isDragging) { isDragging = false; carousel.style.transition = 'transform 1s'; rot = Math.round(rot/angle) * angle; rotateCarousel(); }
+      });
+      window.addEventListener('mousemove', (e) => {
+        if(!isDragging) return;
+        rot += (e.clientX - startX) * 0.2; startX = e.clientX; rotateCarousel();
+      });
+
+      // --- 5. MODAL ---
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      const close = document.querySelector('.close-modal');
+
+      function openModal(src) { modalImg.src = src; modal.classList.add('open'); }
+      close.onclick = () => modal.classList.remove('open');
+      modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); };
+
+    });
+  </script>
+</body>
+</html>

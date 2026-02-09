@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses — Excel Public School</title>
+  <meta name="description" content="Academic programs and courses at Excel Public School.">
+
+  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. CORE VARIABLES (MATCHING HOME/EVENTS) --- */
+    :root {
+      --bg-cream: #F9F8F4;
+      --bg-card: #FFFFFF;
+      --bg-dark: #1C1C1C;
+      
+      --text-main: #2C2C2C;
+      --text-muted: #666666;
+      --text-light: #E0E0E0;
+      
+      --accent: #C5A059; /* Antique Gold */
+      --accent-hover: #A08040;
+      
+      --radius: 4px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
+      
+      --container: 1280px;
+      --nav-height: 80px;
+      --easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* --- 2. RESET & TYPOGRAPHY --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .text-center { text-align: center; }
+
+    /* --- 3. OPTIMIZED NAVBAR (MATCHING HOME) --- */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: var(--nav-height);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      background: transparent; /* Starts transparent */
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      height: 70px; /* Shrinks slightly on scroll */
+    }
+    
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-img {
+      height: 50px;
+      width: auto;
+      display: block;
+      transition: height 0.3s;
+    }
+    
+    header.scrolled .logo-img { height: 40px; }
+
+    /* Desktop Nav */
+    .nav-links { display: flex; gap: 30px; }
+    
+    .nav-links a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+      background: var(--accent); transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--accent); }
+
+    /* Mobile Toggle */
+    .mobile-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      z-index: 1002;
+    }
+
+    /* --- 4. EDITORIAL PAGE HERO --- */
+    .page-header {
+      position: relative;
+      padding: 220px 0 120px; /* More padding for impact */
+      text-align: center;
+      background: #111; /* Dark editorial look */
+      color: white;
+      margin-bottom: 80px;
+      overflow: hidden;
+    }
+    
+    /* Subtle texture overlay */
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .page-header h1 { font-size: 4rem; margin-bottom: 20px; position: relative; z-index: 2; animation: fadeInUp 1s ease-out; }
+    .page-header p { color: #ccc; font-size: 1.2rem; font-weight: 300; max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
+    .page-header span { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 15px; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- 5. COURSES GRID (Next Level Layout) --- */
+    .courses-section { padding-bottom: 120px; }
+    
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      align-items: start; /* Prevents stretching */
+    }
+
+    /* Featured Large Card */
+    .course-card.featured {
+      grid-column: 1 / -1; /* Spans full width */
+      display: grid;
+      grid-template-columns: 1.2fr 1fr; /* Image gets slightly more space */
+      background: white;
+      box-shadow: var(--shadow-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    /* Standard Cards */
+    .course-card {
+      background: white;
+      box-shadow: var(--shadow-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.02);
+      transition: transform 0.5s var(--easing), box-shadow 0.5s var(--easing);
+      opacity: 0; /* Hidden initially */
+      transform: translateY(30px);
+    }
+    
+    /* Animation class */
+    .course-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-float);
+    }
+
+    /* Image Areas */
+    .card-image {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .course-card:not(.featured) .card-image { height: 280px; }
+    .course-card.featured .card-image { height: 100%; min-height: 500px; }
+
+    .card-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s var(--easing);
+      will-change: transform;
+    }
+    .course-card:hover .card-image img { transform: scale(1.08); }
+
+    /* Badges */
+    .card-badge {
+      position: absolute; top: 20px; left: 20px;
+      background: var(--accent); color: white;
+      padding: 8px 20px; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    .card-content { padding: 40px; flex: 1; display: flex; flex-direction: column; position: relative; background: white;}
+    
+    /* Featured content adjustment */
+    .course-card.featured .card-content { justify-content: center; padding: 60px; }
+
+    .card-content h3 { font-size: 1.8rem; margin-bottom: 16px; line-height: 1.2; }
+    .card-content p { color: var(--text-muted); margin-bottom: 30px; font-size: 1rem; flex-grow: 1; }
+    
+    .card-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; color: var(--text-main);
+      text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+      align-self: flex-start;
+    }
+    .card-link:hover { color: var(--accent); padding-left: 5px; }
+
+    /* --- 6. FOOTER (CONSISTENT) --- */
+    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
+    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
+    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+
+    /* --- RESPONSIVE MEDIA QUERIES --- */
+    @media (max-width: 1024px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .course-card.featured { grid-template-columns: 1fr; }
+      .page-header h1 { font-size: 3rem; }
+    }
+
+    @media (max-width: 900px) {
+      /* MOBILE NAV (Matching Home) */
+      .mobile-toggle { display: block; }
+      
+      .nav-links {
+        position: fixed; top: 0; right: 0;
+        height: 100vh; width: 80%; max-width: 300px;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active { transform: translateX(0); }
+      .page-header h1 { font-size: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION (OPTIMIZED & MATCHING HOME) -->
+  <header id="navbar">
+    <div class="container nav-flex">
+      <a href="index.html" class="logo">
+        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+      </a>
+      
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="./About.html">About</a>
+        <a href="./Academics.html">Academics</a>
+        <a href="./Courses.html" class="active">Courses</a>
+        <a href="Events.html">Events</a>
+        <a href="./Admission.html">Admissions</a>
+        <a href="./Contact.html">Contact</a>
+      </nav>
+      
+      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO (Editorial Style) -->
+  <section class="page-header">
+    <div class="container">
+      <span>Curriculum & Innovation</span>
+      <h1>Academic Excellence</h1>
+      <p>A comprehensive curriculum designed to challenge, inspire, and prepare students for the world's finest universities through practical application and critical thinking.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <div class="courses-grid">
+      
+      <!-- 1. FEATURED COURSE (Large Layout) -->
+      <article class="course-card featured scroll-reveal">
+        <div class="card-image">
+          <img src="./uns image/curriculum innovation.jpg" alt="STEM Education">
+          <span class="card-badge">Flagship Program</span>
+        </div>
+        <div class="card-content">
+          <h3>STEM & Innovation Academy</h3>
+          <p>Our flagship program integrates Science, Technology, Engineering, and Mathematics with real-world problem solving. Students have access to robotics labs, 3D printing, and advanced coding bootcamps starting from Grade 6.</p>
+          <a href="#" class="card-link">Explore STEM Program &rarr;</a>
+        </div>
+      </article>
+
+      <!-- 2. Science -->
+      <article class="course-card scroll-reveal" style="transition-delay: 100ms;">
+        <div class="card-image">
+          <img src="./uns image/advance science.jpg" alt="Chemistry Lab">
+          <span class="card-badge" style="background:var(--bg-dark);">Grade 9-12</span>
+        </div>
+        <div class="card-content">
+          <h3>Advanced Sciences</h3>
+          <p>Rigorous preparation in Physics, Chemistry, and Biology with hands-on laboratory work and research opportunities.</p>
+          <a href="#" class="card-link">View Syllabus &rarr;</a>
+        </div>
+      </article>
+
+      <!-- 3. Mathematics -->
+      <article class="course-card scroll-reveal" style="transition-delay: 200ms;">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=800" alt="Mathematics">
+          <span class="card-badge" style="background:var(--bg-dark);">Grade 9-12</span>
+        </div>
+        <div class="card-content">
+          <h3>Pure Mathematics</h3>
+          <p>From Calculus to Statistics, our math department focuses on logical reasoning and analytical thinking skills.</p>
+          <a href="#" class="card-link">View Syllabus &rarr;</a>
+        </div>
+      </article>
+
+      <!-- 4. Arts & Humanities -->
+      <article class="course-card scroll-reveal" style="transition-delay: 300ms;">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800" alt="Art Studio">
+          <span class="card-badge" style="background:var(--bg-dark);">Grade 9-12</span>
+        </div>
+        <div class="card-content">
+          <h3>Arts & Humanities</h3>
+          <p>Fostering creativity and critical thought through Literature, History, Visual Arts, and Philosophy.</p>
+          <a href="#" class="card-link">View Syllabus &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- FOOTER (MATCHING HOME) -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
+          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Academics</h5>
+          <ul>
+            <li><a href="#">Primary School</a></li>
+            <li><a href="#">Middle School</a></li>
+            <li><a href="#">High School</a></li>
+            <li><a href="#">Web Development Course</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Admissions</h5>
+          <ul>
+            <li><a href="#">How to Apply</a></li>
+            <li><a href="#">Tuition Fees</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li>123 Scholar's Lane</li>
+            <li>Shigar, Baltistan 16000</li>
+            <li>+920000000000</li>
+            <li>info@epstissargmail.edu</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center" style="font-size: 0.8rem; color: #555;">
+        &copy; 2024 Excel Public School. Designed for Excellence.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT (OPTIMIZED & MATCHING HOME) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- 1. NAVBAR SCROLL EFFECT (Same as Home) ---
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // --- 2. MOBILE MENU TOGGLE (Same as Home) ---
+      const toggleBtn = document.getElementById('mobile-toggle');
+      const navLinks = document.getElementById('nav-links');
+      
+      toggleBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+      });
+
+      // --- 3. SCROLL REVEAL ANIMATION ---
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const scrollElements = document.querySelectorAll('.scroll-reveal');
+      scrollElements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

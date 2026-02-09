@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academics — Excel Public School</title>
+  <meta name="description" content="Academic journey and curriculum at Excel Public School from Primary to High School.">
+
+  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. CORE VARIABLES (MATCHING HOME/CONTACT) --- */
+    :root {
+      --bg-cream: #F9F8F4;
+      --bg-card: #FFFFFF;
+      --bg-dark: #1C1C1C;
+      
+      --text-main: #2C2C2C;
+      --text-muted: #666666;
+      --text-light: #E0E0E0;
+      
+      --accent: #C5A059; /* Antique Gold */
+      --accent-hover: #A08040;
+      
+      --radius: 4px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
+      
+      --container: 1280px;
+      --nav-height: 80px;
+      --easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* --- 2. RESET & TYPOGRAPHY --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .text-center { text-align: center; }
+
+    /* --- 3. OPTIMIZED NAVBAR (IDENTICAL TO HOME/CONTACT) --- */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: var(--nav-height);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      background: transparent; /* Starts transparent */
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      height: 70px; /* Shrinks slightly on scroll */
+    }
+    
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-img {
+      height: 50px;
+      width: auto;
+      display: block;
+      transition: height 0.3s;
+    }
+    
+    header.scrolled .logo-img { height: 40px; }
+
+    /* Desktop Nav */
+    .nav-links { display: flex; gap: 30px; }
+    
+    .nav-links a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+      background: var(--accent); transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--accent); }
+
+    /* Mobile Toggle */
+    .mobile-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      z-index: 1002;
+    }
+
+    /* --- 4. PARALLAX HERO --- */
+    .page-header {
+      position: relative;
+      height: 70vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+    
+    /* The Parallax Image Layer */
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000') center/cover no-repeat;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: rgba(28, 28, 28, 0.5); /* Dark overlay */
+      z-index: 2;
+    }
+
+    .hero-content { position: relative; z-index: 3; max-width: 800px; padding: 0 20px; animation: fadeInDown 1s ease-out; }
+    .hero-content h1 { font-size: 4rem; margin-bottom: 20px; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .hero-content p { font-size: 1.2rem; font-weight: 300; color: rgba(255,255,255,0.9); }
+    .breadcrumbs { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 15px; }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- 5. PHILOSOPHY --- */
+    .philosophy { padding-bottom: 100px; text-align: center; }
+    .philosophy h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--bg-dark); }
+    .philosophy p { color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
+
+    /* --- 6. STATS STRIP --- */
+    .stats-strip {
+      background: var(--bg-dark); color: white;
+      padding: 80px 0; margin-bottom: 100px;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;
+    }
+    .stat-item { padding: 20px; transition: transform 0.3s; }
+    .stat-item:hover { transform: translateY(-5px); }
+    .stat-item span { display: block; font-size: 3rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 10px; }
+    .stat-item p { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; color: #ccc; }
+
+    /* --- 7. ACADEMIC LEVELS GRID --- */
+    .levels-section { padding-bottom: 120px; }
+    
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+
+    .level-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.02);
+      transition: transform 0.5s var(--easing), box-shadow 0.5s var(--easing);
+      opacity: 0; /* Hidden initially */
+      transform: translateY(40px);
+    }
+    
+    /* Staggered Animation Delays */
+    .level-card:nth-child(1) { transition-delay: 100ms; }
+    .level-card:nth-child(2) { transition-delay: 200ms; }
+    .level-card:nth-child(3) { transition-delay: 300ms; }
+    .level-card:nth-child(4) { transition-delay: 400ms; }
+
+    .level-card.visible { opacity: 1; transform: translateY(0); }
+
+    .level-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-float);
+    }
+
+    .card-img { height: 250px; overflow: hidden; position: relative; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--easing); }
+    .level-card:hover .card-img img { transform: scale(1.1); }
+
+    .card-body { padding: 35px; flex: 1; display: flex; flex-direction: column; }
+    .card-body h3 { font-size: 1.6rem; margin-bottom: 12px; }
+    .card-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+    
+    .feature-list { margin-bottom: 25px; border-top: 1px solid #f0f0f0; padding-top: 20px; }
+    .feature-list li {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px; font-size: 0.9rem; color: var(--text-main);
+    }
+    .feature-list li::before {
+      content: '•'; color: var(--accent); font-size: 1.5rem; line-height: 0; font-weight: bold;
+    }
+
+    .card-link {
+      margin-top: auto;
+      font-weight: 700; color: var(--text-main);
+      display: inline-flex; align-items: center; gap: 8px;
+      text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .level-card:hover .card-link { color: var(--accent); border-color: var(--accent); }
+
+    /* --- 8. INQUIRY SECTION --- */
+    .inquiry-section {
+      background: white;
+      border-top: 1px solid #eee;
+      padding: 120px 0;
+    }
+    .inquiry-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .inquiry-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .inquiry-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; }
+    
+    .inquiry-form input, .inquiry-form select {
+      width: 100%; padding: 18px; margin-bottom: 20px;
+      background: var(--bg-cream); border: 1px solid #e0e0e0;
+      border-radius: var(--radius); font-family: 'Lato', sans-serif; font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .inquiry-form input:focus, .inquiry-form select:focus {
+      outline: none; border-color: var(--accent);
+      background: white; box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+    }
+    .inquiry-form button {
+      width: 100%; padding: 20px; border: none;
+      background: var(--text-main); color: white; font-weight: 700; font-size: 1rem;
+      letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+      transition: 0.3s;
+    }
+    .inquiry-form button:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    /* --- 9. FOOTER (CONSISTENT) --- */
+    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
+    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
+    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .hero-content h1 { font-size: 3rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      /* MOBILE NAV (Matching Home) */
+      .mobile-toggle { display: block; }
+      
+      .nav-links {
+        position: fixed; top: 0; right: 0;
+        height: 100vh; width: 80%; max-width: 300px;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active { transform: translateX(0); }
+      
+      .inquiry-grid { grid-template-columns: 1fr; }
+      .hero-content h1 { font-size: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION (OPTIMIZED & MATCHING HOME) -->
+  <header id="navbar">
+    <div class="container nav-flex">
+      <a href="index.html" class="logo">
+        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+      </a>
+      
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="./About.html">About</a>
+        <a href="./Academics.html" class="active">Academics</a>
+        <a href="./Courses.html">Courses</a>
+        <a href="./Events.html">Events</a>
+        <a href="./Admission.html">Admissions</a>
+        <a href="./Contact.html">Contact</a>
+      </nav>
+      
+      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    </div>
+  </header>
+
+  <!-- PARALLAX HERO -->
+  <section class="page-header">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <span class="breadcrumbs">Home / Academics</span>
+      <h1>The Academic Journey</h1>
+      <p>A structured path to excellence, nurturing students from their first steps to university gates.</p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <div class="container">
+      <h2>Excellence at Every Stage</h2>
+      <p>Our curriculum is designed to challenge, inspire, and prepare. We blend traditional values with modern innovation to create a learning environment like no other, fostering curiosity and resilience.</p>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <span>120+</span>
+        <p>Years of Legacy</p>
+      </div>
+      <div class="stat-item">
+        <span>12:1</span>
+        <p>Student Ratio</p>
+      </div>
+      <div class="stat-item">
+        <span>100%</span>
+        <p>University Placement</p>
+      </div>
+      <div class="stat-item">
+        <span>50+</span>
+        <p>Campus Clubs</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ACADEMIC LEVELS -->
+  <main class="container levels-section">
+    <div class="levels-grid">
+      
+      <!-- Primary -->
+      <article class="level-card scroll-reveal">
+        <div class="card-img">
+          <img src="./uns image/hero.jpg" alt="Primary School">
+        </div>
+        <div class="card-body">
+          <h3>Primary School</h3>
+          <p>Grades 1-5. Building a strong foundation through play-based learning and core skill development.</p>
+          <ul class="feature-list">
+            <li>Individual Attention</li>
+            <li>Focus on Literacy & Numeracy</li>
+            <li>Creative Arts Integration</li>
+          </ul>
+          <a href="#" class="card-link">Learn More &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Middle -->
+      <article class="level-card scroll-reveal">
+        <div class="card-img">
+          <img src="./uns image/middle school.jpg">
+        </div>
+        <div class="card-body">
+          <h3>Middle School</h3>
+          <p>Grades 6-8. Expanding horizons with subject specialization and critical thinking challenges.</p>
+          <ul class="feature-list">
+            <li>Intro to STEM</li>
+            <li>Leadership Programs</li>
+            <li>Community Service</li>
+          </ul>
+          <a href="#" class="card-link">Learn More &rarr;</a>
+        </div>
+      </article>
+
+      <!-- High School -->
+      <article class="level-card scroll-reveal">
+        <div class="card-img">
+          <img src="./uns image/high school.jpg" alt="High School">
+        </div>
+        <div class="card-body">
+          <h3>High School</h3>
+          <p>Grades 9-12. Rigorous preparation for global universities and future leadership roles.</p>
+          <ul class="feature-list">
+            <li>Advanced Placement (AP)</li>
+            <li>Career Counseling</li>
+            <li>Global Exchange Programs</li>
+          </ul>
+          <a href="#" class="card-link">Learn More &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Co-Curricular -->
+      <article class="level-card scroll-reveal">
+        <div class="card-img">
+          <img src="./uns image/beyong classroom.jpg" alt="Sports & Arts">
+        </div>
+        <div class="card-body">
+          <h3>Beyond Classroom</h3>
+          <p>Sports, Arts, and Technology. We believe holistic growth happens outside of textbooks.</p>
+          <ul class="feature-list">
+            <li>Olympic Sports Complex</li>
+            <li>State-of-the-Art Labs</li>
+            <li>Performing Arts Centre</li>
+          </ul>
+          <a href="#" class="card-link">Learn More &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- INQUIRY SECTION -->
+  <section class="inquiry-section">
+    <div class="container inquiry-grid">
+      <div class="inquiry-text">
+        <h2>Start Your Journey</h2>
+        <p>Admissions are open for the upcoming academic year. Fill out the inquiry form to receive our prospectus and schedule a campus visit.</p>
+        <p style="color: var(--accent); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.4rem;">"Education is the most powerful weapon which you can use to change the world."</p>
+      </div>
+      <form class="inquiry-form">
+        <input type="text" placeholder="Student Name">
+        <input type="email" placeholder="Parent Email Address">
+        <select>
+          <option>Primary Admission</option>
+          <option>Middle School Admission</option>
+          <option>High School Admission</option>
+          <option>General Inquiry</option>
+        </select>
+        <button type="submit">Send Inquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER (MATCHING HOME) -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
+          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Academics</h5>
+          <ul>
+            <li><a href="#">Primary School</a></li>
+            <li><a href="#">Middle School</a></li>
+            <li><a href="#">High School</a></li>
+            <li><a href="#">Web Development Course</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Admissions</h5>
+          <ul>
+            <li><a href="#">How to Apply</a></li>
+            <li><a href="#">Tuition Fees</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li>123 Scholar's Lane</li>
+            <li>Shigar, Baltistan 16000</li>
+            <li>+92 300 0000000</li>
+            <li>info@epstissargmail.edu</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center" style="font-size: 0.8rem; color: #555;">
+        &copy; 2024 Excel Public School. Designed for Excellence.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT (OPTIMIZED & MATCHING HOME) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- 1. NAVBAR SCROLL EFFECT (Same as Home/Contact) ---
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // --- 2. MOBILE MENU TOGGLE (Same as Home/Contact) ---
+      const toggleBtn = document.getElementById('mobile-toggle');
+      const navLinks = document.getElementById('nav-links');
+      
+      toggleBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+      });
+
+      // --- 3. PARALLAX HERO EFFECT ---
+      const heroBg = document.getElementById('hero-bg');
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        // Move background at 30% speed
+        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+      });
+
+      // --- 4. SCROLL REVEAL ANIMATION ---
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const scrollElements = document.querySelectorAll('.scroll-reveal');
+      scrollElements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
