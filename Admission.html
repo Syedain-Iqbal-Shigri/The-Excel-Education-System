@@ -1,624 +1,1499 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admissions — Excel Public School</title>
-    <meta name="description" content="Apply to Excel Public School. View admission requirements, process, and key dates.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions — Excel Public School</title>
+  <meta name="description" content="Apply to Excel Public School. View admission requirements, process, and key dates.">
 
-    <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Fonts: Cormorant Garamond (luxury display) + DM Sans (clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        /* --- 1. CORE VARIABLES (MATCHING ALL PAGES) --- */
-        :root {
-            --bg-cream: #F9F8F4;
-            --bg-card: #FFFFFF;
-            --bg-dark: #1C1C1C;
-            
-            --text-main: #2C2C2C;
-            --text-muted: #666666;
-            --text-light: #E0E0E0;
-            
-            --accent: #C5A059; /* Antique Gold */
-            --accent-hover: #A08040;
-            
-            --radius: 4px;
-            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-            --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
-            
-            --container: 1280px;
-            --nav-height: 80px;
-            --easing: cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+  <style>
+    /* =====================================================
+       DESIGN SYSTEM — CSS VARIABLES (LIGHT + DARK THEME)
+    ===================================================== */
+    :root {
+      /* Light Mode Palette */
+      --bg-primary:    #F7F5EF;
+      --bg-secondary:  #FFFFFF;
+      --bg-tertiary:   #EFECE3;
+      --bg-dark:       #161616;
+      --bg-dark-2:     #1E1E1E;
 
-        /* --- 2. RESET & TYPOGRAPHY --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html { scroll-behavior: smooth; }
-        
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+      --text-primary:  #1A1A1A;
+      --text-secondary:#4A4A4A;
+      --text-muted:    #888888;
+      --text-inverse:  #F7F5EF;
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
+      --accent:        #B8963E;
+      --accent-light:  #D4AF6A;
+      --accent-dark:   #8C6E28;
+      --accent-tint:   rgba(184, 150, 62, 0.1);
 
-        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; }
-        
-        .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
-        .text-center { text-align: center; }
+      --border:        rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
 
-        /* --- 3. OPTIMIZED NAVBAR (IDENTICAL TO PREVIOUS) --- */
-        header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            height: var(--nav-height);
-            z-index: 1000;
-            transition: all 0.4s ease;
-            background: transparent; /* Starts transparent */
-        }
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.04);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.06);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.08);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.10);
 
-        header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            height: 70px; /* Shrinks slightly on scroll */
-        }
-        
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-        
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-img {
-            height: 50px;
-            width: auto;
-            display: block;
-            transition: height 0.3s;
-        }
-        
-        header.scrolled .logo-img { height: 40px; }
+      --nav-bg:        rgba(247, 245, 239, 0.92);
+      --nav-height:    84px;
+      --nav-shrink:    68px;
 
-        /* Desktop Nav */
-        .nav-links { display: flex; gap: 30px; }
-        
-        .nav-links a {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-            color: var(--text-main);
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-            background: var(--accent); transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a.active { color: var(--accent); }
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  16px;
 
-        /* Mobile Toggle */
-        .mobile-toggle {
-            display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text-main);
-            z-index: 1002;
-        }
+      --container:  1320px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        /* --- 4. PARALLAX HERO --- */
-        .page-header {
-            position: relative;
-            height: 75vh;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
-            margin-bottom: 100px;
-        }
-        
-        .hero-bg {
-            position: absolute; inset: 0;
-            background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2000') center/cover no-repeat;
-            z-index: 1;
-            will-change: transform;
-        }
+    [data-theme="dark"] {
+      --bg-primary:    #111111;
+      --bg-secondary:  #1A1A1A;
+      --bg-tertiary:   #222222;
+      --bg-dark:       #0A0A0A;
+      --bg-dark-2:     #141414;
 
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(28, 28, 28, 0.3), rgba(28, 28, 28, 0.8)); /* Gradient Overlay */
-            z-index: 2;
-        }
+      --text-primary:  #F0EDE6;
+      --text-secondary:#B0AA9F;
+      --text-muted:    #666666;
+      --text-inverse:  #111111;
 
-        .hero-content { position: relative; z-index: 3; max-width: 800px; padding: 0 20px; animation: fadeInDown 1s ease-out; }
-        .hero-content h1 { font-size: 4.5rem; margin-bottom: 20px; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        .hero-content p { font-size: 1.3rem; font-weight: 300; color: rgba(255,255,255,0.9); margin-bottom: 30px; }
-        
-        .deadline-badge {
-            display: inline-block; padding: 15px 35px;
-            border: 1px solid rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-            border-radius: 50px; margin-bottom: 20px;
-        }
-        .deadline-badge span { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--accent); letter-spacing: 1px; }
+      --accent:        #C9A84C;
+      --accent-light:  #E0C070;
+      --accent-dark:   #A07830;
+      --accent-tint:   rgba(201, 168, 76, 0.12);
 
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+      --border:        rgba(255, 255, 255, 0.07);
+      --border-strong: rgba(255, 255, 255, 0.14);
 
-        /* --- 5. PROCESS TIMELINE --- */
-        .process-section { padding-bottom: 100px; }
-        .section-header { text-align: center; margin-bottom: 80px; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.3);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.4);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.5);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.6);
 
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            position: relative;
-        }
+      --nav-bg:        rgba(17, 17, 17, 0.94);
+    }
 
-        /* Connector Line */
-        .steps-container::before {
-            content: ''; position: absolute; top: 50px; left: 50px; right: 50px;
-            height: 2px; background: #e0e0e0; z-index: 0;
-        }
+    /* =====================================================
+       RESET + BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .step-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-soft);
-            text-align: center;
-            position: relative;
-            transition: all 0.4s var(--easing);
-            border-top: 4px solid transparent;
-            opacity: 0; transform: translateY(30px);
-        }
-        
-        .step-card.visible { opacity: 1; transform: translateY(0); }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
 
-        .step-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-float);
-            border-top-color: var(--accent);
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition), color var(--transition);
+    }
 
-        .step-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: block;
-        }
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+    }
 
-        .step-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .step-card p { color: var(--text-muted); font-size: 0.9rem; }
+    a { text-decoration: none; color: inherit; transition: color var(--transition); }
+    ul  { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 
-        /* --- 6. KEY INFO GRID --- */
-        .info-section { padding-bottom: 120px; background: white; border-top: 1px solid #eee; }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-        }
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
 
-        .info-card { padding: 40px; border-radius: var(--radius); background: var(--bg-cream); }
-        .info-card h3 { font-size: 1.5rem; margin-bottom: 25px; color: var(--bg-dark); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 10px; }
-        
-        .list-item {
-            display: flex; justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .list-item:hover { background: white; padding-left: 10px; border-bottom-color: var(--accent); color: var(--accent); }
-        .list-item strong { font-weight: 600; }
+    .section-padding { padding: 110px 0; }
 
-        /* --- 7. FAQ SECTION --- */
-        .faq-section { padding-bottom: 120px; }
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-        }
+    /* =====================================================
+       TYPOGRAPHY UTILITIES
+    ===================================================== */
+    .label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
 
-        details {
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-soft);
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        details[open] { box-shadow: var(--shadow-float); border-left: 4px solid var(--accent); }
-        
-        summary {
-            padding: 20px 30px;
-            cursor: pointer;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            display: flex; justify-content: space-between; align-items: center;
-            list-style: none; /* Hide arrow */
-        }
-        
-        summary::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: 0.3s; }
-        details[open] summary::after { content: '-'; transform: rotate(180deg); }
-        
-        .faq-answer { padding: 20px 30px; color: var(--text-muted); line-height: 1.8; background: #fafafa; }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
 
-        /* --- 8. CALL TO ACTION --- */
-        .cta-section { padding: 120px 0; text-align: center; background: var(--bg-dark); color: white; }
-        .cta-wrapper { max-width: 700px; margin: 0 auto; }
-        .cta-wrapper h2 { font-size: 2.5rem; margin-bottom: 20px; color: white; }
-        .cta-wrapper p { opacity: 0.8; margin-bottom: 40px; font-size: 1.1rem; }
-        
-        .btn-large {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 20px 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 50px;
-            transition: all 0.4s var(--easing);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-large:hover { background: white; color: var(--bg-dark); transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      font-weight: 300;
+    }
 
-        /* --- 9. FOOTER (MATCHING HOME) --- */
-        footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
-        .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
-        .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
 
-        /* Socials */
-        .social-links { display: flex; gap: 15px; margin-top: 20px; }
-        .social-btn {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease;
-        }
-        .social-btn:hover { background: var(--accent); transform: translateY(-3px); }
-        .social-btn svg { width: 18px; height: 18px; fill: white; }
+    .btn-primary {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .info-grid { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 3.5rem; }
-        }
+    .btn-outline {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+    }
 
-        @media (max-width: 900px) {
-            /* MOBILE NAV (Matching Home) */
-            .mobile-toggle { display: block; }
-            
-            .nav-links {
-                position: fixed; top: 0; right: 0;
-                height: 100vh; width: 80%; max-width: 300px;
-                background: white;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 30px;
-                transform: translateX(100%);
-                transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            }
-            
-            .nav-links.active { transform: translateX(0); }
-            .steps-container::before { display: none; } /* Remove line on mobile */
-            .hero-content h1 { font-size: 2.5rem; }
-            .footer-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    .btn-ghost-white {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      background: transparent;
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--text-primary);
+    }
+    .btn-white:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-large {
+      padding: 18px 48px;
+      font-size: 0.9rem;
+      border-radius: 50px;
+    }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1rem;
+      transition: transform var(--transition);
+    }
+    .btn-arrow:hover::after { transform: translateX(4px); }
+
+    /* =====================================================
+       NAVBAR — IDENTICAL TO INDEX
+    ===================================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      background: transparent;
+      transition: height var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    #navbar.scrolled {
+      height: var(--nav-shrink);
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 1px 0 var(--border), var(--shadow-xs);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 40px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      transition: height var(--transition);
+    }
+
+    #navbar.scrolled .nav-logo img { height: 38px; }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      transition: color var(--transition);
+    }
+
+    #navbar:not(.scrolled) .nav-logo-text strong { color: #fff; }
+
+    .nav-logo-text span {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      position: relative;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    #navbar:not(.scrolled) .nav-links a         { color: rgba(255,255,255,0.88); }
+    #navbar:not(.scrolled) .nav-links a:hover   { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .nav-links a:hover { background: var(--accent-tint); color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 14px; right: 14px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-tint);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    #navbar:not(.scrolled) .theme-toggle {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      padding: 8px;
+      background: none; border: none;
+    }
+
+    .hamburger span {
+      display: block; height: 1.5px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    #navbar:not(.scrolled) .hamburger span { background: #fff; }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(85vw, 320px);
+      height: 100dvh;
+      background: var(--bg-secondary);
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      box-shadow: var(--shadow-lg);
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open { transform: translateX(0); }
+
+    .mobile-drawer a {
+      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition);
+    }
+
+    .mobile-drawer a:hover { color: var(--accent); }
+    .mobile-drawer a:last-child { border-bottom: none; }
+    .mobile-drawer a::after { content: '→'; opacity: 0.4; font-size: 1.1rem; }
+
+    .nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(2px);
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* =====================================================
+       PAGE HERO — PARALLAX
+    ===================================================== */
+    .page-hero {
+      position: relative;
+      height: 75vh;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('./school img/admission.jpeg') center / cover no-repeat;
+      will-change: transform;
+      z-index: 0;
+      transform: scale(1.1);
+    }
+
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.85) 0%,
+        rgba(10,8,5,0.35) 55%,
+        rgba(10,8,5,0.20) 100%
+      );
+      z-index: 1;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 40px 70px;
+      max-width: var(--container);
+      margin: 0 auto;
+      width: 100%;
+      animation: heroSlideUp 0.9s ease-out both;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb span { color: var(--accent-light); }
+    .breadcrumb::before { content: '—'; color: var(--accent); }
+
+    .deadline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 24px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent-light);
+    }
+
+    .deadline-badge span {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(3rem, 7vw, 5rem);
+      color: #fff;
+      line-height: 1.05;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .page-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 36px;
+      font-weight: 300;
+      max-width: 560px;
+    }
+
+    @keyframes heroSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       PROCESS TIMELINE
+    ===================================================== */
+    .process-section {
+      padding: 110px 0 70px;
+      background: var(--bg-primary);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-header .label { margin-bottom: 12px; }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--bg-secondary);
+      padding: 48px 28px 40px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all var(--transition);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .step-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .step-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .step-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .step-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       INFO SECTION (KEY DATES + REQUIREMENTS)
+    ===================================================== */
+    .info-section {
+      padding: 70px 0 110px;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .info-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-md);
+      padding: 48px 40px;
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .info-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 28px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .info-card h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all var(--transition);
+    }
+
+    .list-item strong {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .list-item span {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .list-item:hover {
+      padding-left: 8px;
+      border-bottom-color: var(--accent);
+    }
+
+    /* =====================================================
+       FAQ SECTION
+    ===================================================== */
+    .faq-section {
+      padding: 110px 0;
+      background: var(--bg-primary);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    details {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+    }
+
+    details[open] {
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+
+    summary {
+      padding: 24px 28px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--accent);
+      transition: transform var(--transition);
+    }
+
+    details[open] summary::after {
+      content: '−';
+    }
+
+    .faq-answer {
+      padding: 0 28px 28px 28px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+      padding-top: 20px;
+    }
+
+    /* =====================================================
+       CTA SECTION
+    ===================================================== */
+    .cta-section {
+      padding: 110px 0;
+      background: var(--bg-dark);
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #F0EDE6;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .btn-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 18px 48px;
+      font-size: 0.9rem;
+    }
+
+    .btn-cta:hover {
+      background: #fff;
+      color: var(--bg-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* =====================================================
+   MODAL STYLES (FIXED POSITIONING)
+===================================================== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.modal.open {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  max-width: 550px;
+  width: 100%;
+  margin: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 40px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.modal.open .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color var(--transition);
+  background: none;
+  border: none;
+  line-height: 1;
+  margin-bottom: 20px;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+}
+
+.modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  clear: both;
+}
+
+.modal-content p {
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+
+.modal-form .form-group {
+  margin-bottom: 20px;
+}
+
+.modal-form label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+
+.modal-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.modal-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.modal-submit:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 32px 24px;
+  }
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+}
+
+    /* =====================================================
+       FOOTER — IDENTICAL TO INDEX
+    ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.45);
+      padding: 90px 0 36px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1.1fr;
+      gap: 60px;
+      padding-bottom: 64px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #F0EDE6;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand .footer-logo span { color: var(--accent); }
+
+    .footer-brand p {
+      line-height: 1.85;
+      max-width: 280px;
+      font-size: 0.88rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      transition: all var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .footer-col h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 22px;
+    }
+
+    .footer-col ul li { margin-bottom: 11px; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      transition: all var(--transition);
+      font-size: 0.88rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+      padding-left: 6px;
+    }
+
+    .footer-contact li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      align-items: flex-start;
+    }
+
+    .footer-contact li + li { margin-top: 10px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1100px) {
+      .steps-container { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-height: 72px; --nav-shrink: 60px; }
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-right .btn { display: none; }
+      .hamburger { display: flex; }
+
+      .page-hero-content { padding: 0 20px 48px; }
+      .steps-container { grid-template-columns: 1fr; gap: 24px; }
+      .info-card { padding: 36px 28px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .modal-content { padding: 32px 24px; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- NAVIGATION (OPTIMIZED & MATCHING PREVIOUS PAGES) -->
-    <header id="navbar">
-        <div class="container nav-flex">
-            <a href="index.html" class="logo">
-                <!-- Using a generic placeholder image to ensure it works without local file -->
-                <img src="https://via.placeholder.com/150x50.png?text=EXCEL+LOGO&bg=F9F8F4&fg=C5A059" alt="Excel Public School Logo" class="logo-img">
-            </a>
-            
-            <nav class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="./About.html">About</a>
-                <a href="./Academics.html">Academics</a>
-                <a href="./Courses.html">Courses</a>
-                <a href="./Events.html">Events</a>
-                <a href="./Admissions.html" class="active">Admissions</a>
-                <a href="./Contact.html">Contact</a>
-            </nav>
-            
-            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+  <!-- ================================================
+       NAVBAR — IDENTICAL TO INDEX
+  ================================================= -->
+  <header id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="./school img/logo.png" alt="Excel Public School">
+        <div class="nav-logo-text">
+          <strong>Excel Public School</strong>
+          <span>Est. 2013 · Shigar, Baltistan</span>
         </div>
-    </header>
+      </a>
 
-    <!-- PARALLAX HERO -->
-    <section class="page-header">
-        <div class="hero-bg" id="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-content">
-            <div class="deadline-badge">
-                <span>APPLICATION DEADLINE: MAR 31, 2026</span>
-            </div>
-            <h1>Shape Your Future</h1>
-            <p>Join a community where potential is realized and character is built. We welcome students who are eager to learn, lead, and grow.</p>
-            <a href="#" class="btn-large" style="background: white; color: var(--text-main);">Apply Now</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="./About.html">About</a>
+        <a href="./Academics.html">Academics</a>
+        <a href="./Courses.html">Courses</a>
+        <a href="./Events.html">Events</a>
+        <a href="./Admission.html" class="active">Admissions</a>
+        <a href="./Contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
+        <a href="#" class="btn btn-primary" id="applyNowNavBtn" style="padding: 10px 22px; font-size: 0.72rem;">
+          Apply Now
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="./About.html">About</a>
+    <a href="./Academics.html">Academics</a>
+    <a href="./Courses.html">Courses</a>
+    <a href="./Events.html">Events</a>
+    <a href="./Admission.html">Admissions</a>
+    <a href="./Contact.html">Contact</a>
+  </div>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ================================================
+       PAGE HERO — PARALLAX
+  ================================================= -->
+  <section class="page-hero">
+    <div class="page-hero-bg" id="heroBg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">Home <span>Admissions</span></div>
+      <div class="deadline-badge">
+        📅 Application Deadline: <span>March 31, 2026</span>
+      </div>
+      <h1>Shape Your<br><em>Future</em></h1>
+      <p class="page-hero-sub">Join a community where potential is realized and character is built. We welcome students who are eager to learn, lead, and grow.</p>
+      <a href="#" class="btn btn-white btn-large" id="applyNowHeroBtn">Apply Now →</a>
+    </div>
+  </section>
+
+  <!-- ================================================
+       PROCESS SECTION
+  ================================================= -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Your Journey</span>
+        <h2 class="section-title">The Admission Process</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Our step-by-step guide to joining the Excel family.</p>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-card reveal">
+          <span class="step-number">01</span>
+          <h3>Online Application</h3>
+          <p>Submit the secure online application form with student details, academic history, and extracurricular interests.</p>
         </div>
-    </section>
-
-    <!-- MAIN ADMISSIONS CONTENT -->
-    <main class="container">
-        
-        <!-- PROCESS SECTION -->
-        <section class="process-section">
-            <div class="section-header">
-                <h2>The Admission Process</h2>
-                <p>Our step-by-step guide to joining the Excel family.</p>
-            </div>
-
-            <div class="steps-container">
-                <!-- Step 1 -->
-                <div class="step-card scroll-reveal">
-                    <span class="step-number">01</span>
-                    <h3>Online Application</h3>
-                    <p>Submit the secure online application form with student details, academic history, and extracurricular interests.</p>
-                </div>
-                
-                <!-- Step 2 -->
-                <div class="step-card scroll-reveal" style="transition-delay: 100ms;">
-                    <span class="step-number">02</span>
-                    <h3>Assessment</h3>
-                    <p>Schedule an entrance assessment or interview to evaluate readiness and placement within our curriculum.</p>
-                </div>
-                
-                <!-- Step 3 -->
-                <div class="step-card scroll-reveal" style="transition-delay: 200ms;">
-                    <span class="step-number">03</span>
-                    <h3>Family Interview</h3>
-                    <p>Meet with our admissions team to discuss educational goals and ensure the best fit for your child.</p>
-                </div>
-                
-                <!-- Step 4 -->
-                <div class="step-card scroll-reveal" style="transition-delay: 300ms;">
-                    <span class="step-number">04</span>
-                    <h3>Enrollment</h3>
-                    <p>Complete enrollment formalities, secure your spot, and prepare for the Excel experience.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- KEY INFO SECTION -->
-        <section class="info-section">
-            <div class="info-grid">
-                <!-- Key Dates -->
-                <div class="info-card scroll-reveal" style="transition-delay: 400ms;">
-                    <h3>Key Dates</h3>
-                    <div class="list-container">
-                        <div class="list-item">
-                            <strong>Application Opens</strong>
-                            <span>Nov 1, 2025</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>Priority Deadline</strong>
-                            <span>Feb 28, 2026</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>Regular Deadline</strong>
-                            <span>Mar 31, 2026</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>School Starts</strong>
-                            <span>Sep 1, 2026</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Requirements -->
-                <div class="info-card scroll-reveal" style="transition-delay: 500ms;">
-                    <h3>Requirements</h3>
-                    <div class="list-container">
-                        <div class="list-item">
-                            <strong>Birth Certificate</strong>
-                            <span>Original + Copy</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>Immunization Record</strong>
-                            <span>Updated Record</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>Report Card</strong>
-                            <span>Previous 2 Years</span>
-                        </div>
-                        <div class="list-item">
-                            <strong>Passport Photos</strong>
-                            <span>4 Recent Copies</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ SECTION -->
-        <section class="faq-section">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-            </div>
-            
-            <div class="faq-grid">
-                <details class="scroll-reveal">
-                    <summary>What is the age requirement for Grade 1?</summary>
-                    <div class="faq-answer">
-                        Students must be 5 years old by August 31st of the enrollment year to be eligible for Grade 1.
-                    </div>
-                </details>
-                
-                <details class="scroll-reveal" style="transition-delay: 100ms;">
-                    <summary>Do you offer financial aid or scholarships?</summary>
-                    <div class="faq-answer">
-                        Yes, we offer a comprehensive financial aid program based on family need. Additionally, we offer merit-based scholarships for high-achieving students.
-                    </div>
-                </details>
-                
-                <details class="scroll-reveal" style="transition-delay: 200ms;">
-                    <summary>Is there an entrance exam?</summary>
-                    <div class="faq-answer">
-                        Yes, for entry into Middle and High School, students are required to take a placement test in English and Math to ensure appropriate academic placement.
-                    </div>
-                </details>
-                
-                <details class="scroll-reveal" style="transition-delay: 300ms;">
-                    <summary>Can international students apply?</summary>
-                    <div class="faq-answer">
-                        Absolutely. We welcome international students and provide support for visa processing, English language learning, and host family arrangements.
-                    </div>
-                </details>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- CALL TO ACTION -->
-    <section class="cta-section">
-        <div class="cta-wrapper">
-            <h2>Ready to Apply?</h2>
-            <p>Begin your journey at Excel Public School today. Our admissions team is ready to assist you every step of the way.</p>
-            <a href="#" class="btn-large"><span>Start Application</span></a>
+        <div class="step-card reveal reveal-delay-1">
+          <span class="step-number">02</span>
+          <h3>Assessment</h3>
+          <p>Schedule an entrance assessment or interview to evaluate readiness and placement within our curriculum.</p>
         </div>
-    </section>
-
-    <!-- FOOTER (MATCHING HOME) -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
-                    <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
-                    <!-- SOCIALS -->
-                    <div class="social-links">
-                        <a href="#" class="social-btn" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
-                        </a>
-                        <a href="#" class="social-btn" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0-2.16C8.75 0 8.33.01 7.05.07 2.7.27.27 2.7.07 7.05.01 8.33 0 8.75 0 12s.01 3.67.07 4.95c.2 4.35 2.62 6.78 6.98 6.98 1.28.06 1.7.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.7.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.25 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 2.88z"/></svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h5>Academics</h5>
-                    <ul>
-                        <li><a href="#">Primary School</a></li>
-                        <li><a href="#">Middle School</a></li>
-                        <li><a href="#">High School</a></li>
-                        <li><a href="#">Web Development Course</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Admissions</h5>
-                    <ul>
-                        <li><a href="#">How to Apply</a></li>
-                        <li><a href="#">Tuition Fees</a></li>
-                        <li><a href="#">Scholarships</a></li>
-                        <li><a href="#">FAQs</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Contact</h5>
-                    <ul>
-                        <li>Mohallah Ahound Pura PO Tissar</li>
-                        <li>District Shigar, Baltistan</li>
-                        <li>+9230 00000000</li>
-                        <li>info@epstissargmail.edu</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center" style="font-size: 0.8rem; color: #555;">
-                &copy; 2024 Excel Public School. Designed for Excellence.
-            </div>
+        <div class="step-card reveal reveal-delay-2">
+          <span class="step-number">03</span>
+          <h3>Family Interview</h3>
+          <p>Meet with our admissions team to discuss educational goals and ensure the best fit for your child.</p>
         </div>
-    </footer>
+        <div class="step-card reveal reveal-delay-3">
+          <span class="step-number">04</span>
+          <h3>Enrollment</h3>
+          <p>Complete enrollment formalities, secure your spot, and prepare for the Excel experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- JAVASCRIPT (OPTIMIZED & MATCHING PREVIOUS PAGES) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- 1. NAVBAR SCROLL EFFECT (Same as Home) ---
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
+  <!-- ================================================
+       KEY INFO SECTION
+  ================================================= -->
+  <section class="info-section">
+    <div class="container">
+      <div class="info-grid">
+        <!-- Key Dates -->
+        <div class="info-card reveal">
+          <h3>Key Dates</h3>
+          <div class="list-container">
+            <div class="list-item">
+              <strong>Application Opens</strong>
+              <span>Nov 1, 2025</span>
+            </div>
+            <div class="list-item">
+              <strong>Priority Deadline</strong>
+              <span>Feb 28, 2026</span>
+            </div>
+            <div class="list-item">
+              <strong>Regular Deadline</strong>
+              <span>Mar 31, 2026</span>
+            </div>
+            <div class="list-item">
+              <strong>School Starts</strong>
+              <span>Sep 1, 2026</span>
+            </div>
+          </div>
+        </div>
 
-            // --- 2. MOBILE MENU TOGGLE (Same as Home) ---
-            const toggleBtn = document.getElementById('mobile-toggle');
-            const navLinks = document.getElementById('nav-links');
-            
-            toggleBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
-            });
+        <!-- Requirements -->
+        <div class="info-card reveal reveal-delay-1">
+          <h3>Requirements</h3>
+          <div class="list-container">
+            <div class="list-item">
+              <strong>Birth Certificate</strong>
+              <span>Original + Copy</span>
+            </div>
+            <div class="list-item">
+              <strong>Immunization Record</strong>
+              <span>Updated Record</span>
+            </div>
+            <div class="list-item">
+              <strong>Report Card</strong>
+              <span>Previous 2 Years</span>
+            </div>
+            <div class="list-item">
+              <strong>Passport Photos</strong>
+              <span>4 Recent Copies</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // --- 3. PARALLAX HERO EFFECT ---
-            const heroBg = document.getElementById('hero-bg');
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-                // Move background at 30% speed
-                heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
-            });
+  <!-- ================================================
+       FAQ SECTION
+  ================================================= -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Have Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
 
-            // --- 4. SCROLL REVEAL ANIMATION ---
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            };
+      <div class="faq-grid">
+        <details class="reveal">
+          <summary>What is the age requirement for Grade 1?</summary>
+          <div class="faq-answer">
+            Students must be 5 years old by August 31st of the enrollment year to be eligible for Grade 1.
+          </div>
+        </details>
+        <details class="reveal reveal-delay-1">
+          <summary>Do you offer financial aid or scholarships?</summary>
+          <div class="faq-answer">
+            Yes, we offer a comprehensive financial aid program based on family need. Additionally, we offer merit-based scholarships for high-achieving students.
+          </div>
+        </details>
+        <details class="reveal reveal-delay-2">
+          <summary>Is there an entrance exam?</summary>
+          <div class="faq-answer">
+            Yes, for entry into Middle and High School, students are required to take a placement test in English and Math to ensure appropriate academic placement.
+          </div>
+        </details>
+        <details class="reveal reveal-delay-3">
+          <summary>Can international students apply?</summary>
+          <div class="faq-answer">
+            Absolutely. We welcome international students and provide support for visa processing, English language learning, and host family arrangements.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+  <!-- ================================================
+       CALL TO ACTION
+  ================================================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h2>Ready to Apply?</h2>
+        <p>Begin your journey at Excel Public School today. Our admissions team is ready to assist you every step of the way.</p>
+        <a href="#" class="btn btn-cta btn-large" id="applyNowCtaBtn">Start Application →</a>
+      </div>
+    </div>
+  </section>
 
-            const scrollElements = document.querySelectorAll('.scroll-reveal');
-            scrollElements.forEach(el => observer.observe(el));
+  <!-- ================================================
+       MODAL (APPLICATION FORM)
+  ================================================= -->
+  <div class="modal" id="applicationModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModalBtn">&times;</button>
+      <h2>Apply to Excel</h2>
+      <p>Fill out the form below and our admissions team will contact you within 24 hours.</p>
+      <form class="modal-form" id="applicationForm">
+        <div class="form-group">
+          <label>Student's Full Name *</label>
+          <input type="text" placeholder="e.g., Muhammad Ali" required>
+        </div>
+        <div class="form-group">
+          <label>Parent/Guardian Email *</label>
+          <input type="email" placeholder="parent@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+92 300 1234567">
+        </div>
+        <div class="form-group">
+          <label>Applying for Grade</label>
+          <select>
+            <option>Primary (Grades 1-5)</option>
+            <option>Middle (Grades 6-8)</option>
+            <option>High (Grades 9-12)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message (Optional)</label>
+          <textarea placeholder="Any specific questions or details..."></textarea>
+        </div>
+        <button type="submit" class="modal-submit">Submit Application →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================================================
+       FOOTER — IDENTICAL TO INDEX
+  ================================================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand footer-col">
+          <a href="index.html" class="footer-logo">Excel <span>Public School</span></a>
+          <p>A dedicated institution fostering intellectual curiosity, moral integrity, and global citizenship among its students since 2013.</p>
+          <div class="footer-social">
+            <a class="social-btn" href="#" aria-label="Facebook">f</a>
+            <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic">in</a>
+            <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+            <a class="social-btn" href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Academics</h5>
+          <ul>
+            <li><a href="#">Primary School</a></li>
+            <li><a href="#">Middle School</a></li>
+            <li><a href="#">High School</a></li>
+            <li><a href="#">Web Development</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Admissions</h5>
+          <ul>
+            <li><a href="#">How to Apply</a></li>
+            <li><a href="#">Tuition Fees</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>Mohallah Ahound Pura, Tissar<br>District Shigar, Baltistan</span></li>
+            <li><span>📞</span><span>+92 300 000 0000</span></li>
+            <li><span>✉️</span><span>info@excelpublicschool.edu</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Excel Public School. Designed for Excellence.</span>
+        <div style="display:flex; gap:20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================= -->
+  <script>
+    (() => {
+      'use strict';
+
+      /* ── 1. THEME TOGGLE ─────────────────────────── */
+      const html = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('eps-theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('eps-theme', next);
+      });
+
+      /* ── 2. NAVBAR ───────────────────────────────── */
+      const navbar = document.getElementById('navbar');
+      const hamburger = document.getElementById('hamburger');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const navOverlay = document.getElementById('navOverlay');
+
+      const handleScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      const openDrawer = () => { hamburger.classList.add('open'); mobileDrawer.classList.add('open'); navOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+      const closeDrawer = () => { hamburger.classList.remove('open'); mobileDrawer.classList.remove('open'); navOverlay.classList.remove('open'); document.body.style.overflow = ''; };
+      hamburger.addEventListener('click', () => mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer());
+      navOverlay.addEventListener('click', closeDrawer);
+
+      /* ── 3. PARALLAX HERO ────────────────────────── */
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) {
+        window.addEventListener('scroll', () => {
+          heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.25}px)`;
+        }, { passive: true });
+      }
+
+      /* ── 4. SCROLL REVEAL ────────────────────────── */
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            revealObserver.unobserve(e.target);
+          }
         });
-    </script>
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      /* ── 5. MODAL FUNCTIONALITY ──────────────────── */
+      const modal = document.getElementById('applicationModal');
+      const openModalBtns = document.querySelectorAll('#applyNowNavBtn, #applyNowHeroBtn, #applyNowCtaBtn');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+
+      function openModal() {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      openModalBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal();
+        });
+      });
+
+      closeModalBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      /* ── 6. FORM SUBMISSION ──────────────────────── */
+      const applicationForm = document.getElementById('applicationForm');
+      applicationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your application! Our admissions team will contact you soon.');
+        applicationForm.reset();
+        closeModal();
+      });
+    })();
+  </script>
 </body>
 </html>

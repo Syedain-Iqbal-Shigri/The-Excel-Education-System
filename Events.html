@@ -1,290 +1,867 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events — Excel Public School</title>
   <meta name="description" content="Events & activities at Excel Public School — sports, exhibitions, parent meetings and more.">
 
-  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <!-- Fonts: Cormorant Garamond (luxury display) + DM Sans (clean body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. CORE VARIABLES (MATCHING HOME) --- */
+    /* =====================================================
+       DESIGN SYSTEM — CSS VARIABLES (LIGHT + DARK THEME)
+    ===================================================== */
     :root {
-      --bg-cream: #F9F8F4;
-      --bg-card: #FFFFFF;
-      --bg-dark: #1C1C1C;
-      
-      --text-main: #2C2C2C;
-      --text-muted: #666666;
-      --text-light: #E0E0E0;
-      
-      --accent: #C5A059; /* Gold */
-      --accent-hover: #A08040;
-      
-      --radius: 4px;
-      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
-      
-      --container: 1280px;
-      --nav-height: 80px;
+      /* Light Mode Palette */
+      --bg-primary:    #F7F5EF;
+      --bg-secondary:  #FFFFFF;
+      --bg-tertiary:   #EFECE3;
+      --bg-dark:       #161616;
+      --bg-dark-2:     #1E1E1E;
+
+      --text-primary:  #1A1A1A;
+      --text-secondary:#4A4A4A;
+      --text-muted:    #888888;
+      --text-inverse:  #F7F5EF;
+
+      --accent:        #B8963E;
+      --accent-light:  #D4AF6A;
+      --accent-dark:   #8C6E28;
+      --accent-tint:   rgba(184, 150, 62, 0.1);
+
+      --border:        rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.04);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.06);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.08);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.10);
+
+      --nav-bg:        rgba(247, 245, 239, 0.92);
+      --nav-height:    84px;
+      --nav-shrink:    68px;
+
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  16px;
+
+      --container:  1320px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* --- 2. RESET & TYPOGRAPHY --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { scroll-behavior: smooth; }
-    
+    [data-theme="dark"] {
+      --bg-primary:    #111111;
+      --bg-secondary:  #1A1A1A;
+      --bg-tertiary:   #222222;
+      --bg-dark:       #0A0A0A;
+      --bg-dark-2:     #141414;
+
+      --text-primary:  #F0EDE6;
+      --text-secondary:#B0AA9F;
+      --text-muted:    #666666;
+      --text-inverse:  #111111;
+
+      --accent:        #C9A84C;
+      --accent-light:  #E0C070;
+      --accent-dark:   #A07830;
+      --accent-tint:   rgba(201, 168, 76, 0.12);
+
+      --border:        rgba(255, 255, 255, 0.07);
+      --border-strong: rgba(255, 255, 255, 0.14);
+
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.3);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.4);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.5);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.6);
+
+      --nav-bg:        rgba(17, 17, 17, 0.94);
+    }
+
+    /* =====================================================
+       RESET + BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
     body {
-      font-family: 'Lato', sans-serif;
-      background-color: var(--bg-cream);
-      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition), color var(--transition);
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
     }
 
-    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
-    ul { list-style: none; }
+    a { text-decoration: none; color: inherit; transition: color var(--transition); }
+    ul  { list-style: none; }
     img { max-width: 100%; display: block; }
-    
-    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
-    .text-center { text-align: center; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 
-    /* --- 3. OPTIMIZED NAVBAR (IDENTICAL TO HOME) --- */
-    header {
-      position: fixed; top: 0; left: 0; width: 100%;
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-padding { padding: 110px 0; }
+
+    /* =====================================================
+       TYPOGRAPHY UTILITIES
+    ===================================================== */
+    .label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost-white {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      background: transparent;
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1rem;
+      transition: transform var(--transition);
+    }
+    .btn-arrow:hover::after { transform: translateX(4px); }
+
+    /* =====================================================
+       NAVBAR — IDENTICAL TO INDEX
+    ===================================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
       height: var(--nav-height);
       z-index: 1000;
-      transition: all 0.4s ease;
-      background: transparent; /* Starts transparent */
+      background: transparent;
+      transition: height var(--transition), background var(--transition), box-shadow var(--transition);
     }
 
-    header.scrolled {
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      height: 70px; /* Shrinks slightly on scroll */
+    #navbar.scrolled {
+      height: var(--nav-shrink);
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 1px 0 var(--border), var(--shadow-xs);
     }
-    
-    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-    
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-main);
+
+    .nav-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 40px;
+      max-width: var(--container);
+      margin: 0 auto;
     }
-    
-    .logo-img {
-      height: 50px;
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 48px;
       width: auto;
-      display: block;
-      transition: height 0.3s;
+      transition: height var(--transition);
     }
-    
-    /* Header Scrolled state for logo */
-    header.scrolled .logo-img { height: 40px; }
 
-    /* Desktop Nav */
-    .nav-links { display: flex; gap: 30px; }
-    
-    .nav-links a {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    #navbar.scrolled .nav-logo img { height: 38px; }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--text-main);
-      position: relative;
+      color: var(--text-primary);
+      transition: color var(--transition);
     }
-    
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-      background: var(--accent); transition: width 0.3s;
-    }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--accent); } /* Active State */
 
-    /* Mobile Toggle */
-    .mobile-toggle {
+    #navbar:not(.scrolled) .nav-logo-text strong { color: #fff; }
+
+    .nav-logo-text span {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* Desktop Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      position: relative;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    #navbar:not(.scrolled) .nav-links a { color: rgba(255,255,255,0.88); }
+    #navbar:not(.scrolled) .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .nav-links a:hover { background: var(--accent-tint); color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 14px; right: 14px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Nav Right — theme toggle + CTA */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-tint);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    #navbar:not(.scrolled) .theme-toggle {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* Hamburger */
+    .hamburger {
       display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
       background: none;
       border: none;
-      color: var(--text-main);
-      z-index: 1002;
     }
 
-    /* --- 4. PAGE HEADER --- */
-    .page-header {
-      padding: 180px 0 100px; /* Top padding accounts for fixed nav */
-      text-align: center;
-      background: linear-gradient(135deg, #fff 0%, #f1f1f1 100%);
-      margin-bottom: 60px;
-      border-bottom: 1px solid #e5e5e5;
+    .hamburger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
     }
-    
-    .page-header h1 { font-size: 3.5rem; margin-bottom: 15px; animation: fadeInDown 0.8s ease-out; }
-    .page-header p { color: var(--text-muted); font-size: 1.1rem; font-weight: 300; max-width: 600px; margin: 0 auto; }
-    
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- 5. FILTER BAR (Optimized Design) --- */
-    .filter-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; flex-wrap: wrap; }
+    #navbar:not(.scrolled) .hamburger span { background: #fff; }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(85vw, 320px);
+      height: 100dvh;
+      background: var(--bg-secondary);
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      box-shadow: var(--shadow-lg);
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open { transform: translateX(0); }
+
+    .mobile-drawer a {
+      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition);
+    }
+
+    .mobile-drawer a:hover { color: var(--accent); }
+    .mobile-drawer a:last-child { border-bottom: none; }
+    .mobile-drawer a::after { content: '→'; opacity: 0.4; font-size: 1.1rem; }
+
+    /* Overlay */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* =====================================================
+       PAGE HERO — PARALLAX
+    ===================================================== */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('./uns\ image/beyong classroom.jpg') center / cover no-repeat;
+      will-change: transform;
+      z-index: 0;
+      transform: scale(1.1);
+    }
+
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.80) 0%,
+        rgba(10,8,5,0.35) 55%,
+        rgba(10,8,5,0.20) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Grain overlay */
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 40px 64px;
+      max-width: var(--container);
+      margin: 0 auto;
+      width: 100%;
+      animation: heroSlideUp 0.9s ease-out both;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb span { color: var(--accent-light); }
+    .breadcrumb::before { content: '—'; color: var(--accent); }
+
+    .page-hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      line-height: 1.05;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      max-width: 700px;
+    }
+
+    .page-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 16px;
+      font-weight: 300;
+      max-width: 500px;
+    }
+
+    @keyframes heroSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       FILTER BAR
+    ===================================================== */
+    .filter-section {
+      padding: 70px 0 40px;
+      background: var(--bg-primary);
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
     .filter-btn {
-      background: transparent; border: 1px solid #ddd;
-      padding: 10px 24px; border-radius: 30px; cursor: pointer;
-      font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem;
-      transition: 0.3s;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--text-main); color: white; border-color: var(--text-main);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 10px 28px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      transition: all var(--transition);
+      cursor: pointer;
     }
 
-    /* --- 6. EVENT CARDS (Luxury Design) --- */
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* =====================================================
+       EVENTS GRID
+    ===================================================== */
+    .events-section {
+      padding-bottom: 110px;
+      background: var(--bg-primary);
+    }
+
     .events-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
       gap: 40px;
-      padding-bottom: 100px;
     }
 
     .event-card {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
       overflow: hidden;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.03);
-      opacity: 0;
-      animation: fadeUp 0.6s ease-out forwards;
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: var(--shadow-xs);
     }
 
-    /* Staggered Animation for cards */
-    .event-card:nth-child(1) { animation-delay: 0.1s; }
-    .event-card:nth-child(2) { animation-delay: 0.2s; }
-    .event-card:nth-child(3) { animation-delay: 0.3s; }
-    .event-card:nth-child(4) { animation-delay: 0.4s; }
-
     .event-card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-float);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
     }
 
     .event-image {
       position: relative;
-      height: 280px;
+      height: 260px;
       overflow: hidden;
     }
 
     .event-image img {
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       transition: transform 0.6s ease;
     }
 
-    .event-card:hover .event-image img { transform: scale(1.08); }
+    .event-card:hover .event-image img {
+      transform: scale(1.06);
+    }
 
     /* Date Badge */
     .date-badge {
-      position: absolute; top: 20px; left: 20px;
-      background: white; color: var(--text-main);
-      padding: 10px 18px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--bg-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-sm);
+      border-left: 3px solid var(--accent);
       z-index: 2;
     }
-    .date-badge .month { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
-    .date-badge .day { display: block; font-size: 1.5rem; font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1; }
 
-    .event-details { padding: 30px; flex: 1; display: flex; flex-direction: column; }
-    
+    .date-badge .month {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .date-badge .day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    .event-details {
+      padding: 28px 28px 32px;
+    }
+
     .event-meta {
-      font-size: 0.8rem; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
-      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 12px;
     }
-    
-    .event-details h3 { font-size: 1.5rem; margin-bottom: 12px; transition: color 0.3s; }
-    .event-card:hover .event-details h3 { color: var(--accent); }
-    
-    .event-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1; }
-    
+
+    .event-meta span:first-child {
+      background: var(--accent-tint);
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+
+    .event-details h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+    }
+
+    .event-card:hover .event-details h3 {
+      color: var(--accent);
+    }
+
+    .event-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
     .event-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 20px; border-top: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
     }
 
-    .link-arrow {
-      font-weight: 700; font-size: 0.9rem; color: var(--text-main);
-      display: flex; align-items: center; gap: 8px;
-      transition: gap 0.3s, color 0.3s;
+    .event-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
-    .link-arrow:hover { color: var(--accent); gap: 15px; }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .event-link {
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap var(--transition);
+    }
 
-    /* --- 7. FOOTER (MATCHING HOME) --- */
-    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
-    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
-    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
-    .footer-col ul li { margin-bottom: 12px; }
-    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+    .event-link:hover {
+      gap: 12px;
+    }
 
-    /* --- RESPONSIVE MEDIA QUERIES --- */
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      grid-column: 1 / -1;
+    }
+
+    /* =====================================================
+       FOOTER — IDENTICAL TO INDEX
+    ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.45);
+      padding: 90px 0 36px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1.1fr;
+      gap: 60px;
+      padding-bottom: 64px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #F0EDE6;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand .footer-logo span { color: var(--accent); }
+
+    .footer-brand p {
+      line-height: 1.85;
+      max-width: 280px;
+      font-size: 0.88rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      transition: all var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .footer-col h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 22px;
+    }
+
+    .footer-col ul li { margin-bottom: 11px; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      transition: all var(--transition);
+      font-size: 0.88rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+      padding-left: 6px;
+    }
+
+    .footer-contact li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      align-items: flex-start;
+    }
+
+    .footer-contact li + li { margin-top: 10px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1100px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+    }
+
     @media (max-width: 900px) {
-      /* MOBILE NAV STYLES (Matching Home) */
-      .mobile-toggle { display: block; }
-      
-      .nav-links {
-        position: fixed; top: 0; right: 0;
-        height: 100vh; width: 80%; max-width: 300px;
-        background: white;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-        padding-top: 60px; /* Space for close button if needed, or just center alignment */
-      }
-      
-      .nav-links.active { transform: translateX(0); }
+      .events-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+    }
 
-      .page-header h1 { font-size: 2.5rem; }
+    @media (max-width: 768px) {
+      :root { --nav-height: 72px; --nav-shrink: 60px; }
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-right .btn { display: none; }
+      .hamburger { display: flex; }
+
+      .page-hero-content { padding: 0 20px 48px; }
+      .filter-bar { gap: 10px; }
+      .filter-btn { padding: 8px 20px; font-size: 0.7rem; }
       .events-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       NAVBAR — IDENTICAL TO INDEX
+  ================================================= -->
   <header id="navbar">
-    <div class="container nav-flex">
-      <a href="index.html" class="logo">
-        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="./school img/logo.png" alt="Excel Public School">
+        <div class="nav-logo-text">
+          <strong>Excel Public School</strong>
+          <span>Est. 2013 · Shigar, Baltistan</span>
+        </div>
       </a>
-      
-      <nav class="nav-links" id="nav-links">
+
+      <nav class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
         <a href="./About.html">About</a>
         <a href="./Academics.html">Academics</a>
@@ -293,142 +870,185 @@
         <a href="./Admission.html">Admissions</a>
         <a href="./Contact.html">Contact</a>
       </nav>
-      
-      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
+        <a href="./Admission.html" class="btn btn-primary" style="padding: 10px 22px; font-size: 0.72rem;">
+          Apply Now
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- PAGE HEADER -->
-  <section class="page-header">
-    <div class="container">
-      <span style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-size: 0.8rem; font-weight: 700; display:block; margin-bottom:10px;">Our Community</span>
-      <h1>Upcoming Events</h1>
-      <p>A calendar of academic, athletic, and cultural excellence.</p>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="./About.html">About</a>
+    <a href="./Academics.html">Academics</a>
+    <a href="./Courses.html">Courses</a>
+    <a href="Events.html">Events</a>
+    <a href="./Admission.html">Admissions</a>
+    <a href="./Contact.html">Contact</a>
+  </div>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ================================================
+       PAGE HERO — PARALLAX
+  ================================================= -->
+  <section class="page-hero">
+    <div class="page-hero-bg" id="heroBg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">Home <span>Events</span></div>
+      <h1>Upcoming<br><em>Events</em></h1>
+      <p class="page-hero-sub">A calendar of academic, athletic, and cultural excellence — where our community comes alive.</p>
     </div>
   </section>
 
-  <main class="container">
-    
-    <!-- Filter Categories -->
-    <div class="filter-bar">
-      <button class="filter-btn active">All Events</button>
-      <button class="filter-btn">Academics</button>
-      <button class="filter-btn">Sports</button>
-      <button class="filter-btn">Arts</button>
-      <button class="filter-btn">Community</button>
+  <!-- ================================================
+       FILTER BAR
+  ================================================= -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-filter="all">All Events</button>
+        <button class="filter-btn" data-filter="academics">Academics</button>
+        <button class="filter-btn" data-filter="sports">Sports</button>
+        <button class="filter-btn" data-filter="arts">Arts</button>
+        <button class="filter-btn" data-filter="community">Community</button>
+      </div>
     </div>
+  </section>
 
-    <!-- Events Grid -->
-    <div class="events-grid">
-      
-      <!-- Event 1 -->
-      <article class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1600" alt="Annual Sports Day">
-          <div class="date-badge">
-            <span class="month">MAR</span>
-            <span class="day">26</span>
+  <!-- ================================================
+       EVENTS GRID
+  ================================================= -->
+  <section class="events-section">
+    <div class="container">
+      <div class="events-grid" id="eventsGrid">
+        <!-- Event 1 - Sports -->
+        <article class="event-card reveal" data-category="sports">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1600" alt="Annual Sports Day" loading="lazy">
+            <div class="date-badge">
+              <span class="month">MAR</span>
+              <span class="day">26</span>
+            </div>
           </div>
-        </div>
-        <div class="event-details">
-          <div class="event-meta">
-            <span>⚽ Sports</span> • Main Ground
+          <div class="event-details">
+            <div class="event-meta">
+              <span>⚽ Sports</span> • Main Ground
+            </div>
+            <h3>Annual Sports Day</h3>
+            <p class="event-desc">A day of spirited competition featuring track and field events, relays, and team sports for all grade levels.</p>
+            <div class="event-footer">
+              <span class="event-time">9:00 AM - 4:00 PM</span>
+              <a href="#" class="event-link">View Details →</a>
+            </div>
           </div>
-          <h3>Annual Sports Day</h3>
-          <p class="event-desc">A day of spirited competition featuring track and field events, relays, and team sports for all grade levels.</p>
-          <div class="event-footer">
-            <span style="font-size:0.85rem; color:var(--text-muted);">9:00 AM - 4:00 PM</span>
-            <a href="#" class="link-arrow">View Details &rarr;</a>
-          </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Event 2 -->
-      <article class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1600" alt="Science Exhibition">
-          <div class="date-badge">
-            <span class="month">APR</span>
-            <span class="day">08</span>
+        <!-- Event 2 - Academics -->
+        <article class="event-card reveal" data-category="academics">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1600" alt="Innovation Fair" loading="lazy">
+            <div class="date-badge">
+              <span class="month">APR</span>
+              <span class="day">08</span>
+            </div>
           </div>
-        </div>
-        <div class="event-details">
-          <div class="event-meta">
-            <span>🔬 Academics</span> • Science Block
+          <div class="event-details">
+            <div class="event-meta">
+              <span>🔬 Academics</span> • Science Block
+            </div>
+            <h3>Innovation Fair 2024</h3>
+            <p class="event-desc">Students showcase their projects in robotics, renewable energy, and biology. Open to parents and community members.</p>
+            <div class="event-footer">
+              <span class="event-time">10:00 AM - 2:00 PM</span>
+              <a href="#" class="event-link">Register →</a>
+            </div>
           </div>
-          <h3>Innovation Fair 2024</h3>
-          <p class="event-desc">Students showcase their projects in robotics, renewable energy, and biology. Open to parents and community members.</p>
-          <div class="event-footer">
-            <span style="font-size:0.85rem; color:var(--text-muted);">10:00 AM - 2:00 PM</span>
-            <a href="#" class="link-arrow">Register &rarr;</a>
-          </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Event 3 -->
-      <article class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1600" alt="Arts Showcase">
-          <div class="date-badge">
-            <span class="month">JUN</span>
-            <span class="day">05</span>
+        <!-- Event 3 - Arts -->
+        <article class="event-card reveal" data-category="arts">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1600" alt="Spring Arts Showcase" loading="lazy">
+            <div class="date-badge">
+              <span class="month">JUN</span>
+              <span class="day">05</span>
+            </div>
           </div>
-        </div>
-        <div class="event-details">
-          <div class="event-meta">
-            <span>🎭 Arts</span> • Auditorium
+          <div class="event-details">
+            <div class="event-meta">
+              <span>🎭 Arts</span> • Auditorium
+            </div>
+            <h3>Spring Arts Showcase</h3>
+            <p class="event-desc">An evening of theatre, classical music performances, and a visual art exhibition by our senior students.</p>
+            <div class="event-footer">
+              <span class="event-time">5:00 PM Onwards</span>
+              <a href="#" class="event-link">Book Seats →</a>
+            </div>
           </div>
-          <h3>Spring Arts Showcase</h3>
-          <p class="event-desc">An evening of theatre, classical music performances, and a visual art exhibition by our senior students.</p>
-          <div class="event-footer">
-            <span style="font-size:0.85rem; color:var(--text-muted);">5:00 PM Onwards</span>
-            <a href="#" class="link-arrow">Book Seats &rarr;</a>
-          </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- Event 4 -->
-      <article class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600" alt="Parent Meeting">
-          <div class="date-badge">
-            <span class="month">MAY</span>
-            <span class="day">12</span>
+        <!-- Event 4 - Community -->
+        <article class="event-card reveal" data-category="community">
+          <div class="event-image">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600" alt="Parent-Teacher Meeting" loading="lazy">
+            <div class="date-badge">
+              <span class="month">MAY</span>
+              <span class="day">12</span>
+            </div>
           </div>
-        </div>
-        <div class="event-details">
-          <div class="event-meta">
-            <span>👨‍👩‍👧 Community</span> • Conference Hall
+          <div class="event-details">
+            <div class="event-meta">
+              <span>👨‍👩‍👧 Community</span> • Conference Hall
+            </div>
+            <h3>Parent-Teacher Meeting</h3>
+            <p class="event-desc">An opportunity to discuss academic progress, upcoming assessments, and holistic development plans.</p>
+            <div class="event-footer">
+              <span class="event-time">2:00 PM - 5:00 PM</span>
+              <a href="#" class="event-link">Schedule →</a>
+            </div>
           </div>
-          <h3>Parent-Teacher Meeting</h3>
-          <p class="event-desc">An opportunity to discuss academic progress, upcoming assessments, and holistic development plans.</p>
-          <div class="event-footer">
-            <span style="font-size:0.85rem; color:var(--text-muted);">2:00 PM - 5:00 PM</span>
-            <a href="#" class="link-arrow">Schedule &rarr;</a>
-          </div>
-        </div>
-      </article>
-
+        </article>
+      </div>
     </div>
-  </main>
+  </section>
 
-  <!-- FOOTER (MATCHING HOME) -->
+  <!-- ================================================
+       FOOTER — IDENTICAL TO INDEX
+  ================================================= -->
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
-          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
+        <div class="footer-brand footer-col">
+          <a href="index.html" class="footer-logo">Excel <span>Public School</span></a>
+          <p>A dedicated institution fostering intellectual curiosity, moral integrity, and global citizenship among its students since 2013.</p>
+          <div class="footer-social">
+            <a class="social-btn" href="#" aria-label="Facebook">f</a>
+            <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic">in</a>
+            <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+            <a class="social-btn" href="#" aria-label="YouTube">▶</a>
+          </div>
         </div>
+
         <div class="footer-col">
           <h5>Academics</h5>
           <ul>
             <li><a href="#">Primary School</a></li>
             <li><a href="#">Middle School</a></li>
             <li><a href="#">High School</a></li>
-            <li><a href="#">Web Development Course</a></li>
+            <li><a href="#">Web Development</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Admissions</h5>
           <ul>
@@ -438,58 +1058,123 @@
             <li><a href="#">FAQs</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Contact</h5>
-          <ul>
-            <li>123 Scholar's Lane</li>
-            <li>Shigar, Baltistan 16000</li>
-            <li>+920000000000</li>
-            <li>info@epstissargmail.edu</li>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>Mohallah Ahound Pura, Tissar<br>District Shigar, Baltistan</span></li>
+            <li><span>📞</span><span>+92 300 000 0000</span></li>
+            <li><span>✉️</span><span>info@excelpublicschool.edu</span></li>
           </ul>
         </div>
       </div>
-      <div class="text-center" style="font-size: 0.8rem; color: #555;">
-        &copy; 2024 Excel Public School. Designed for Excellence.
+
+      <div class="footer-bottom">
+        <span>© 2026 Excel Public School. Designed for Excellence.</span>
+        <div style="display:flex; gap:20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================= -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      // --- 1. NAVBAR SCROLL EFFECT (Same as Home) ---
+    (() => {
+      'use strict';
+
+      /* ── 1. THEME TOGGLE ─────────────────────────── */
+      const html = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('eps-theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('eps-theme', next);
+      });
+
+      /* ── 2. NAVBAR ───────────────────────────────── */
       const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
+      const hamburger = document.getElementById('hamburger');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const navOverlay = document.getElementById('navOverlay');
+
+      const handleScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      const openDrawer = () => { hamburger.classList.add('open'); mobileDrawer.classList.add('open'); navOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+      const closeDrawer = () => { hamburger.classList.remove('open'); mobileDrawer.classList.remove('open'); navOverlay.classList.remove('open'); document.body.style.overflow = ''; };
+      hamburger.addEventListener('click', () => mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer());
+      navOverlay.addEventListener('click', closeDrawer);
+
+      /* ── 3. PARALLAX HERO ────────────────────────── */
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) {
+        window.addEventListener('scroll', () => {
+          heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.25}px)`;
+        }, { passive: true });
+      }
+
+      /* ── 4. SCROLL REVEAL ────────────────────────── */
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            revealObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      /* ── 5. FILTER FUNCTIONALITY ──────────────────── */
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const eventCards = document.querySelectorAll('.event-card');
+
+      function filterEvents(category) {
+        let visibleCount = 0;
+        eventCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'all' || cardCategory === category) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Optional: show no results message if needed
+        const grid = document.getElementById('eventsGrid');
+        let noResults = grid.querySelector('.no-results');
+        if (visibleCount === 0) {
+          if (!noResults) {
+            noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'No events found in this category.';
+            grid.appendChild(noResults);
+          }
+          noResults.style.display = 'block';
+        } else if (noResults) {
+          noResults.style.display = 'none';
         }
-      });
+      }
 
-      // --- 2. MOBILE MENU TOGGLE (Same as Home) ---
-      const toggleBtn = document.getElementById('mobile-toggle');
-      const navLinks = document.getElementById('nav-links');
-      
-      toggleBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
-      });
-
-      // --- 3. FILTER BUTTON LOGIC ---
-      const filters = document.querySelectorAll('.filter-btn');
-      filters.forEach(btn => {
+      filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          // Remove active from all
-          filters.forEach(b => b.classList.remove('active'));
-          // Add active to clicked
+          const category = btn.getAttribute('data-filter');
+          filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          
-          // Optional: In a real app, you would filter the grid items here using JS display toggles
+          filterEvents(category);
         });
       });
-    });
+    })();
   </script>
 </body>
 </html>

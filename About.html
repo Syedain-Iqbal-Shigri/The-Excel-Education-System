@@ -1,311 +1,1147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us — Excel Public School</title>
-  <meta name="description" content="About Excel Public School history, mission, and leadership.">
+  <meta name="description" content="Discover the history, mission, values, and faculty of Excel Public School — Est. 2013, Shigar, Baltistan.">
 
-  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <!-- Fonts: Cormorant Garamond (luxury display) + DM Sans (clean body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. CORE VARIABLES (MATCHING HOME) --- */
+    /* =====================================================
+       DESIGN SYSTEM — IDENTICAL TO INDEX.HTML
+    ===================================================== */
     :root {
-      --bg-cream: #F9F8F4;
-      --bg-card: #FFFFFF;
-      --bg-dark: #1C1C1C;
-      
-      --text-main: #2C2C2C;
-      --text-muted: #666666;
-      --text-light: #E0E0E0;
-      
-      --accent: #C5A059; /* Antique Gold */
-      --accent-hover: #A08040;
-      
-      --radius: 4px;
-      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
-      
-      --container: 1280px;
-      --nav-height: 80px;
-      --easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+      --bg-primary:    #F7F5EF;
+      --bg-secondary:  #FFFFFF;
+      --bg-tertiary:   #EFECE3;
+      --bg-dark:       #161616;
+      --bg-dark-2:     #1E1E1E;
+
+      --text-primary:  #1A1A1A;
+      --text-secondary:#4A4A4A;
+      --text-muted:    #888888;
+      --text-inverse:  #F7F5EF;
+
+      --accent:        #B8963E;
+      --accent-light:  #D4AF6A;
+      --accent-dark:   #8C6E28;
+      --accent-tint:   rgba(184, 150, 62, 0.10);
+
+      --border:        rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+
+      --shadow-xs:  0 2px 8px  rgba(0,0,0,0.04);
+      --shadow-sm:  0 8px 24px rgba(0,0,0,0.06);
+      --shadow-md:  0 16px 40px rgba(0,0,0,0.08);
+      --shadow-lg:  0 30px 60px rgba(0,0,0,0.10);
+
+      --nav-bg:        rgba(247, 245, 239, 0.92);
+      --nav-height:    84px;
+      --nav-shrink:    68px;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+
+      --container: 1320px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* --- 2. RESET & TYPOGRAPHY --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+    [data-theme="dark"] {
+      --bg-primary:    #111111;
+      --bg-secondary:  #1A1A1A;
+      --bg-tertiary:   #222222;
+      --bg-dark:       #0A0A0A;
+      --bg-dark-2:     #141414;
+
+      --text-primary:  #F0EDE6;
+      --text-secondary:#B0AA9F;
+      --text-muted:    #666666;
+      --text-inverse:  #111111;
+
+      --accent:        #C9A84C;
+      --accent-light:  #E0C070;
+      --accent-dark:   #A07830;
+      --accent-tint:   rgba(201, 168, 76, 0.12);
+
+      --border:        rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.14);
+
+      --shadow-xs:  0 2px 8px  rgba(0,0,0,0.3);
+      --shadow-sm:  0 8px 24px rgba(0,0,0,0.4);
+      --shadow-md:  0 16px 40px rgba(0,0,0,0.5);
+      --shadow-lg:  0 30px 60px rgba(0,0,0,0.6);
+
+      --nav-bg:     rgba(17,17,17,0.94);
+    }
+
+    /* =====================================================
+       RESET + BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    
+
     body {
-      font-family: 'Lato', sans-serif;
-      background-color: var(--bg-cream);
-      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background var(--transition), color var(--transition);
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--text-primary);
     }
 
-    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    a  { text-decoration: none; color: inherit; transition: color var(--transition); }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
-    
-    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
-    .text-center { text-align: center; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 
-    /* --- 3. OPTIMIZED NAVBAR (IDENTICAL TO HOME/CONTACT) --- */
-    header {
-      position: fixed; top: 0; left: 0; width: 100%;
+    .container      { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
+    .section-padding { padding: 110px 0; }
+
+    /* ── Typography Utilities ── */
+    .label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost-white {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      background: transparent;
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1rem;
+      transition: transform var(--transition);
+    }
+    .btn-arrow:hover::after { transform: translateX(4px); }
+
+    /* =====================================================
+       NAVBAR — IDENTICAL TO INDEX
+    ===================================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
       height: var(--nav-height);
       z-index: 1000;
-      transition: all 0.4s ease;
-      background: transparent; /* Starts transparent */
+      background: transparent;
+      transition: height var(--transition), background var(--transition), box-shadow var(--transition);
     }
 
-    header.scrolled {
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      height: 70px; /* Shrinks slightly on scroll */
+    #navbar.scrolled {
+      height: var(--nav-shrink);
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 1px 0 var(--border), var(--shadow-xs);
     }
-    
-    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-    
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-main);
+
+    .nav-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 40px;
+      max-width: var(--container);
+      margin: 0 auto;
     }
-    
-    .logo-img {
-      height: 50px;
-      width: auto;
-      display: block;
-      transition: height 0.3s;
-    }
-    
-    header.scrolled .logo-img { height: 40px; }
 
-    /* Desktop Nav */
-    .nav-links { display: flex; gap: 30px; }
-    
-    .nav-links a {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      transition: height var(--transition);
+    }
+
+    #navbar.scrolled .nav-logo img { height: 38px; }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--text-primary);
+      transition: color var(--transition);
+    }
+
+    #navbar:not(.scrolled) .nav-logo-text strong { color: #fff; }
+
+    .nav-logo-text span {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
       position: relative;
+      transition: color var(--transition), background var(--transition);
     }
-    
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-      background: var(--accent); transition: width 0.3s;
-    }
-    .nav-links a:hover::after { width: 100%; }
+
+    #navbar:not(.scrolled) .nav-links a         { color: rgba(255,255,255,0.88); }
+    #navbar:not(.scrolled) .nav-links a:hover   { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .nav-links a:hover { background: var(--accent-tint); color: var(--accent); }
     .nav-links a.active { color: var(--accent); }
 
-    /* Mobile Toggle */
-    .mobile-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--text-main);
-      z-index: 1002;
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 14px; right: 14px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
     }
 
-    /* --- 4. PARALLAX HERO --- */
-    .page-header {
-      position: relative;
-      height: 70vh;
-      min-height: 600px;
+    .nav-right {
       display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-tint);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    #navbar:not(.scrolled) .theme-toggle {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      padding: 8px;
+      background: none; border: none;
+    }
+
+    .hamburger span {
+      display: block; height: 1.5px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    #navbar:not(.scrolled) .hamburger span { background: #fff; }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(85vw, 320px);
+      height: 100dvh;
+      background: var(--bg-secondary);
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      box-shadow: var(--shadow-lg);
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open { transform: translateX(0); }
+
+    .mobile-drawer a {
+      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition);
+    }
+
+    .mobile-drawer a:hover { color: var(--accent); }
+    .mobile-drawer a:last-child { border-bottom: none; }
+    .mobile-drawer a::after { content: '→'; opacity: 0.4; font-size: 1.1rem; }
+
+    .nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(2px);
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* =====================================================
+       PAGE HERO — PARALLAX
+    ===================================================== */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000') center / cover no-repeat;
+      will-change: transform;
+      z-index: 0;
+      transform: scale(1.1);
+    }
+
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.80) 0%,
+        rgba(10,8,5,0.35) 55%,
+        rgba(10,8,5,0.20) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Grain overlay */
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 40px 64px;
+      max-width: var(--container);
+      margin: 0 auto;
+      width: 100%;
+      animation: heroSlideUp 0.9s ease-out both;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb span { color: var(--accent-light); }
+    .breadcrumb::before { content: '—'; color: var(--accent); }
+
+    .page-hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      line-height: 1.05;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      max-width: 700px;
+    }
+
+    .page-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 16px;
+      font-weight: 300;
+      max-width: 500px;
+    }
+
+    @keyframes heroSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       STORY SECTION
+    ===================================================== */
+    .story-section {
+      padding: 120px 0;
+      background: var(--bg-primary);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .story-text .label { margin-bottom: 14px; }
+
+    .story-text h2 { font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 28px; }
+
+    .story-body {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+
+    .story-quote {
+      border-left: 3px solid var(--accent);
+      padding: 20px 28px;
+      margin: 36px 0;
+      background: var(--accent-tint);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .story-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+
+    .story-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 36px 0;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .meta-item p {
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Story image side */
+    .story-img-side {
+      position: relative;
+    }
+
+    .story-img-frame {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .story-img-frame img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .story-img-frame:hover img { transform: scale(1.04); }
+
+    /* Year badge */
+    .year-badge {
+      position: absolute;
+      bottom: -24px;
+      left: -24px;
+      width: 130px;
+      height: 130px;
+      background: var(--bg-dark);
+      border: 3px solid var(--accent);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;
-      overflow: hidden;
-      margin-bottom: 80px;
-    }
-    
-    /* The Parallax Image Layer */
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000') center/cover no-repeat;
-      z-index: 1;
-      will-change: transform;
-    }
-
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: rgba(28, 28, 28, 0.5); /* Dark overlay */
+      box-shadow: var(--shadow-md);
       z-index: 2;
     }
 
-    .hero-content { position: relative; z-index: 3; max-width: 800px; padding: 0 20px; animation: fadeInDown 1s ease-out; }
-    .hero-content h1 { font-size: 4.5rem; margin-bottom: 20px; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-    .hero-content p { font-size: 1.2rem; font-weight: 300; color: rgba(255,255,255,0.9); }
-    .breadcrumbs { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 15px; }
-
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* --- 5. STORY SECTION --- */
-    .story-section { padding-bottom: 120px; }
-    .story-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    .year-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
     }
 
-    .story-text h2 { font-size: 2.5rem; margin-bottom: 24px; position: relative; display: inline-block; }
-    .story-text h2::after {
-      content: ''; position: absolute; bottom: 5px; left: 0; width: 40px; height: 3px; background: var(--accent);
+    .year-badge .txt {
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
+      line-height: 1.4;
     }
-    .story-text p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; line-height: 1.9; }
 
-    .story-highlight {
-      border-left: 3px solid var(--accent); padding-left: 30px; margin: 40px 0;
-      font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-main);
+    /* Corner accent line */
+    .img-corner-tl {
+      position: absolute;
+      top: -16px; right: -16px;
+      width: 80px; height: 80px;
+      border-top: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      border-radius: 0 var(--radius-sm) 0 0;
+      pointer-events: none;
+    }
+
+    /* =====================================================
+       MISSION + VISION — SPLIT BANNER
+    ===================================================== */
+    .mv-section {
+      background: var(--bg-dark);
+      padding: 100px 0;
+    }
+
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .mv-divider {
+      background: rgba(255,255,255,0.08);
+      height: 200px;
+      align-self: center;
+    }
+
+    .mv-item { text-align: center; padding: 0 24px; }
+
+    .mv-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--accent-tint);
+      border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 24px;
+    }
+
+    .mv-item h3 {
+      font-size: 1.8rem;
+      color: #F0EDE6;
+      margin-bottom: 16px;
+    }
+
+    .mv-item p {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    /* =====================================================
+       CORE VALUES
+    ===================================================== */
+    .values-section {
+      padding: 110px 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 68px;
+    }
+
+    .section-head .section-title { margin-bottom: 14px; }
+
+    .section-head p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .value-card {
+      padding: 44px 36px;
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+      border-color: transparent;
+    }
+
+    .value-card:hover::before { transform: scaleX(1); }
+
+    .value-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 20px;
+      transition: transform var(--transition);
+    }
+
+    .value-card:hover .value-icon { transform: scale(1.12); }
+
+    .value-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .value-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* =====================================================
+       TIMELINE — HISTORY
+    ===================================================== */
+    .timeline-section {
+      padding: 110px 0;
+      background: var(--bg-primary);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Central spine */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      transform: translateX(-50%);
+    }
+
+    .tl-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: calc(50% + 40px);
+      margin-bottom: 56px;
       position: relative;
     }
-    
-    .story-link {
-      color: var(--text-main); font-weight: 700; text-transform: uppercase; font-size: 0.9rem;
-      display: inline-flex; align-items: center; gap: 10px;
-      border-bottom: 2px solid transparent; transition: 0.3s;
-    }
-    .story-link:hover { color: var(--accent); border-color: var(--accent); }
 
-    .story-img { position: relative; }
-    .story-img img { border-radius: var(--radius); box-shadow: var(--shadow-float); }
-    
-    .experience-badge {
-      position: absolute; bottom: -20px; right: -20px;
-      background: white; padding: 30px;
-      box-shadow: var(--shadow-float); text-align: center;
-      border-top: 4px solid var(--accent);
-      border-radius: 4px;
+    .tl-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: calc(50% + 40px);
     }
-    .badge-number { display: block; font-size: 3.5rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 5px; }
-    .badge-text { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; }
 
-    /* --- 6. CORE VALUES --- */
-    .values-section { background: white; padding: 100px 0; margin-bottom: 100px; border-top: 1px solid #eee; }
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
-    .section-header p { color: var(--text-muted); }
-
-    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-    
-    .value-card {
-      text-align: center; padding: 40px 30px;
-      background: var(--bg-cream); /* Subtle contrast */
-      border-radius: var(--radius);
-      transition: all 0.4s var(--easing);
-      opacity: 0; transform: translateY(30px);
+    /* Dot on spine */
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 0 0 3px var(--accent-tint);
+      z-index: 1;
     }
-    .value-card.visible { opacity: 1; transform: translateY(0); }
-    .value-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-soft); background: white; }
-    
-    .value-icon {
-      font-size: 3rem; color: var(--accent); margin-bottom: 20px; display: inline-block; transition: 0.3s;
-    }
-    .value-card:hover .value-icon { transform: scale(1.1); }
-    
-    .value-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
-    .value-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* --- 7. FACULTY SECTION --- */
-    .faculty-section { padding-bottom: 120px; }
+    .tl-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px 32px;
+      max-width: 340px;
+      box-shadow: var(--shadow-xs);
+      transition: all var(--transition);
+    }
+
+    .tl-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .tl-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .tl-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .tl-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       FACULTY GRID
+    ===================================================== */
+    .faculty-section {
+      padding: 110px 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
     .faculty-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
     }
+
     .faculty-card {
-      background: white; border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow-soft); transition: all 0.5s var(--easing);
-      opacity: 0; transform: translateY(40px);
+      background: var(--bg-primary);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xs);
+      transition: all var(--transition);
     }
-    .faculty-card.visible { opacity: 1; transform: translateY(0); }
-    .faculty-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-float); }
-    
-    .faculty-img { height: 350px; overflow: hidden; position: relative; }
-    .faculty-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-    .faculty-card:hover .faculty-img img { transform: scale(1.05); }
-    
-    .faculty-info { padding: 25px 20px; text-align: center; background: white; height: 100%; }
-    .faculty-info h4 { font-size: 1.2rem; margin-bottom: 5px; }
-    .faculty-info span { color: var(--accent); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: 5px; }
 
-    /* --- 8. FOOTER (MATCHING HOME) --- */
-    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
-    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
-    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
-    .footer-col ul li { margin-bottom: 12px; }
-    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+    .faculty-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
 
-    /* Social Icons */
-    .social-links { display: flex; gap: 15px; margin-top: 20px; }
+    .faculty-photo {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .faculty-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .faculty-card:hover .faculty-photo img { transform: scale(1.07); }
+
+    .faculty-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .faculty-card:hover .faculty-overlay { opacity: 1; }
+
+    .faculty-social {
+      position: absolute;
+      bottom: 16px; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transition: all var(--transition);
+    }
+
+    .faculty-card:hover .faculty-social {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .faculty-social a {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 0.8rem;
+      backdrop-filter: blur(6px);
+      transition: all var(--transition);
+    }
+
+    .faculty-social a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .faculty-info {
+      padding: 22px 20px 24px;
+      text-align: center;
+    }
+
+    .faculty-info h4 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .faculty-info .role {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* =====================================================
+       CTA STRIP
+    ===================================================== */
+    .cta-strip {
+      background: var(--bg-dark);
+      padding: 90px 0;
+    }
+
+    .cta-strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-strip h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: #F0EDE6;
+      max-width: 560px;
+    }
+
+    .cta-strip h2 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .cta-strip-btns {
+      display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0;
+    }
+
+    /* =====================================================
+       FOOTER — IDENTICAL TO INDEX
+    ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.45);
+      padding: 90px 0 36px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1.1fr;
+      gap: 60px;
+      padding-bottom: 64px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #F0EDE6;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand .footer-logo span { color: var(--accent); }
+    .footer-brand p { line-height: 1.85; max-width: 280px; font-size: 0.88rem; }
+
+    .footer-social {
+      display: flex; gap: 10px; margin-top: 28px;
+    }
+
     .social-btn {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      transition: all var(--transition);
     }
-    .social-btn:hover { background: var(--accent); transform: translateY(-3px); }
-    .social-btn svg { width: 18px; height: 18px; fill: white; }
 
-    /* --- RESPONSIVE --- */
-    @media (max-width: 1024px) {
-      .story-grid { grid-template-columns: 1fr; }
+    .social-btn:hover {
+      background: var(--accent); border-color: var(--accent);
+      color: #fff; transform: translateY(-2px);
+    }
+
+    .footer-col h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 22px;
+    }
+
+    .footer-col ul li { margin-bottom: 11px; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      transition: all var(--transition);
+      font-size: 0.88rem;
+    }
+    .footer-col a:hover { color: var(--accent); padding-left: 6px; }
+
+    .footer-contact li {
+      display: flex; gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      align-items: flex-start;
+    }
+    .footer-contact li + li { margin-top: 10px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1100px) {
       .faculty-grid { grid-template-columns: repeat(2, 1fr); }
-      .hero-content h1 { font-size: 3.5rem; }
+      .footer-grid  { grid-template-columns: 1fr 1fr; gap: 48px; }
+      .mv-grid { grid-template-columns: 1fr; gap: 0; }
+      .mv-divider { display: none; }
+      .mv-item { padding: 48px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .mv-item:last-child { border-bottom: none; }
     }
 
     @media (max-width: 900px) {
-      /* MOBILE NAV (Matching Home) */
-      .mobile-toggle { display: block; }
-      
-      .nav-links {
-        position: fixed; top: 0; right: 0;
-        height: 100vh; width: 80%; max-width: 300px;
-        background: white;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      .story-grid { grid-template-columns: 1fr; gap: 60px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .cta-strip-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-height: 72px; --nav-shrink: 60px; }
+      .container { padding: 0 20px; }
+      .section-padding { padding: 72px 0; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-right .btn { display: none; }
+      .hamburger { display: flex; }
+
+      .page-hero-content { padding: 0 20px 48px; }
+      .story-section { padding: 80px 0; }
+
+      /* Timeline mobile: single column */
+      .timeline::before { left: 24px; }
+      .tl-item,
+      .tl-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 64px;
+        padding-right: 0;
       }
-      
-      .nav-links.active { transform: translateX(0); }
-      .experience-badge { right: 0; left: 0; width: 100%; bottom: -20px; }
-      .hero-content h1 { font-size: 2.5rem; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .tl-item::after {
+        left: 24px;
+      }
+      .tl-card { max-width: 100%; }
+
+      .faculty-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid  { grid-template-columns: 1fr; }
+      .values-grid  { grid-template-columns: 1fr; }
+      .story-meta   { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .year-badge   { left: 0; bottom: -20px; }
+    }
+
+    @media (max-width: 480px) {
+      .faculty-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       NAVBAR — IDENTICAL STRUCTURE TO INDEX
+  ================================================= -->
   <header id="navbar">
-    <div class="container nav-flex">
-      <a href="index.html" class="logo">
-        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="./school img/logo.png" alt="Excel Public School">
+        <div class="nav-logo-text">
+          <strong>Excel Public School</strong>
+          <span>Est. 2013 · Shigar, Baltistan</span>
+        </div>
       </a>
-      
-      <nav class="nav-links" id="nav-links">
+
+      <nav class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
         <a href="./About.html" class="active">About</a>
         <a href="./Academics.html">Academics</a>
@@ -314,166 +1150,351 @@
         <a href="./Admission.html">Admissions</a>
         <a href="./Contact.html">Contact</a>
       </nav>
-      
-      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
+        <a href="./Admission.html" class="btn btn-primary" style="padding:10px 22px; font-size:0.72rem;">
+          Apply Now
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- PARALLAX HERO -->
-  <section class="page-header">
-    <div class="hero-bg" id="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    
-    <div class="hero-content">
-      <span class="breadcrumbs">Home / About</span>
-      <h1>Our Legacy</h1>
-      <p>A century of excellence, tradition, and innovation.</p>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="./About.html">About</a>
+    <a href="./Academics.html">Academics</a>
+    <a href="./Courses.html">Courses</a>
+    <a href="./Events.html">Events</a>
+    <a href="./Admission.html">Admissions</a>
+    <a href="./Contact.html">Contact</a>
+  </div>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ================================================
+       PAGE HERO — PARALLAX
+  ================================================= -->
+  <section class="page-hero">
+    <div class="page-hero-bg" id="heroBg"></div>
+    <div class="page-hero-overlay"></div>
+
+    <div class="page-hero-content">
+      <div class="breadcrumb">Home <span>About Us</span></div>
+      <h1>Our Legacy &amp;<br><em>Our Mission</em></h1>
+      <p class="page-hero-sub">A decade of excellence, tradition, and inspired learning in the heart of Baltistan.</p>
     </div>
   </section>
 
-  <!-- STORY SECTION -->
-  <section class="container story-section">
-    <div class="story-grid">
-      <div class="story-text scroll-reveal">
-        <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 15px;">Who We Are</span>
-        <h2>Welcome to Excel School</h2>
-        <p>Since our founding, Excel Public School has been a beacon of academic excellence. We believe that education is not merely the learning of facts, but the training of the mind to think, analyze, and create.</p>
-        
-        <div class="story-highlight">
-          "Character is the foundation upon which all excellence is built."
+  <!-- ================================================
+       STORY
+  ================================================= -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-grid">
+
+        <div class="story-text reveal">
+          <span class="label">Who We Are</span>
+          <h2 class="section-title">Welcome to<br>Excel Public School</h2>
+
+          <p class="story-body">
+            Since our founding in 2013, Excel Public School has been a beacon of academic
+            excellence in Shigar, Baltistan. We believe that education is not merely the
+            learning of facts, but the training of the mind to think, analyze, and create.
+          </p>
+
+          <div class="story-quote">
+            <p>"Character is the foundation upon which all excellence is built."</p>
+          </div>
+
+          <p class="story-body">
+            Our campus provides a nurturing environment where students are encouraged to
+            explore their potential through rigorous academics, competitive sports, and
+            artistic expression — producing graduates who are confident, capable, and
+            ready for the world.
+          </p>
+
+          <div class="story-meta">
+            <div class="meta-item">
+              <h4>2013</h4>
+              <p>Year Founded</p>
+            </div>
+            <div class="meta-item">
+              <h4>1,200+</h4>
+              <p>Students Enrolled</p>
+            </div>
+            <div class="meta-item">
+              <h4>60+</h4>
+              <p>Qualified Faculty</p>
+            </div>
+            <div class="meta-item">
+              <h4>98%</h4>
+              <p>Annual Pass Rate</p>
+            </div>
+          </div>
+
+          <a href="#timeline" class="btn btn-outline btn-arrow">Our History</a>
         </div>
 
-        <p>Our campus provides a nurturing environment where students are encouraged to explore their potential through rigorous academics, competitive sports, and artistic expression.</p>
-        
-        <a href="#" class="story-link">Read Our Full History &rarr;</a>
-      </div>
+        <div class="story-img-side reveal reveal-delay-2">
+          <div class="img-corner-tl"></div>
+          <div class="story-img-frame">
+            <img src="./uns image/excel school.jpg" alt="Excel Public School Building">
+          </div>
+          <div class="year-badge">
+            <span class="num">12</span>
+            <span class="txt">Years of<br>Excellence</span>
+          </div>
+        </div>
 
-      <div class="story-img scroll-reveal" style="transition-delay: 200ms;">
-        <img src="./uns image/excel school.jpg" alt="School Building Architecture">
-        <div class="experience-badge">
-          <span class="badge-number">120</span>
-          <span class="badge-text">Years of<br>Excellence</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       MISSION + VISION BANNER
+  ================================================= -->
+  <section class="mv-section">
+    <div class="container">
+      <div class="mv-grid">
+        <div class="mv-item reveal">
+          <div class="mv-icon">🎯</div>
+          <h3>Our Mission</h3>
+          <p>To provide a world-class education that nurtures intellectual curiosity, builds strong character, and prepares students to lead with purpose and compassion in an ever-changing world.</p>
+        </div>
+        <div class="mv-divider"></div>
+        <div class="mv-item reveal reveal-delay-2">
+          <div class="mv-icon">🔭</div>
+          <h3>Our Vision</h3>
+          <p>To be the most respected institution in Baltistan — a model of academic excellence and ethical leadership that transforms the lives of every student who walks through our doors.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VALUES SECTION -->
+  <!-- ================================================
+       CORE VALUES
+  ================================================= -->
   <section class="values-section">
     <div class="container">
-      <div class="section-header">
-        <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Our Pillars</span>
-        <h2>Core Values</h2>
-        <p>The principles that guide every decision we make.</p>
+      <div class="section-head reveal">
+        <span class="label">Our Pillars</span>
+        <h2 class="section-title">Core Values</h2>
+        <p>The principles that guide every decision, every lesson, and every interaction at Excel.</p>
       </div>
 
       <div class="values-grid">
-        <div class="value-card scroll-reveal">
-          <div class="value-icon">🎓</div>
+        <div class="value-card reveal">
+          <span class="value-icon">🎓</span>
           <h3>Academic Rigor</h3>
-          <p>We challenge every student to exceed their own expectations through a curriculum that demands critical thinking and creativity.</p>
+          <p>We challenge every student to exceed their own expectations through a curriculum that demands critical thinking, creativity, and depth of understanding.</p>
         </div>
-        <div class="value-card scroll-reveal" style="transition-delay: 100ms;">
-          <div class="value-icon">⚖️</div>
+        <div class="value-card reveal reveal-delay-1">
+          <span class="value-icon">⚖️</span>
           <h3>Integrity</h3>
-          <p>Honesty, fairness, and respect are pillars of our community. We teach students to lead with honor.</p>
+          <p>Honesty, fairness, and respect are the pillars of our community. We teach students that true leadership begins with moral courage.</p>
         </div>
-        <div class="value-card scroll-reveal" style="transition-delay: 200ms;">
-          <div class="value-icon">🌍</div>
+        <div class="value-card reveal reveal-delay-2">
+          <span class="value-icon">🌍</span>
           <h3>Global Citizenship</h3>
-          <p>We prepare students not just for university, but for life in a diverse and interconnected world.</p>
+          <p>We prepare students not just for university, but for a purposeful life in a diverse, interconnected, and rapidly evolving world.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <span class="value-icon">🤝</span>
+          <h3>Inclusivity</h3>
+          <p>Every student, regardless of background, deserves access to an excellent education. We celebrate diversity and foster a culture of belonging.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <span class="value-icon">💡</span>
+          <h3>Innovation</h3>
+          <p>We embrace new ideas, modern teaching methods, and technology to keep our students ahead of the curve and hungry to discover.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <span class="value-icon">🏆</span>
+          <h3>Excellence</h3>
+          <p>We set high standards in everything — academics, sports, arts, and conduct — because we believe every student is capable of greatness.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FACULTY SECTION -->
-  <section class="container faculty-section">
-    <div class="section-header">
-      <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Leadership</span>
-      <h2>Meet Our Faculty</h2>
-      <p style="color: var(--text-muted);">Dedicated educators who inspire greatness.</p>
-    </div>
+  <!-- ================================================
+       HISTORY TIMELINE
+  ================================================= -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label">Our Journey</span>
+        <h2 class="section-title">A Decade of Milestones</h2>
+        <p>From a humble beginning to a pillar of education in Baltistan.</p>
+      </div>
 
-    <div class="faculty-grid">
-      <!-- Teacher 1 -->
-      <article class="faculty-card scroll-reveal">
-        <div class="faculty-img">
-          <img src="./uns image/principle.jpg" alt="Principal">
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-year">2013</div>
+            <h4>The Foundation</h4>
+            <p>Excel Public School was founded with a class of 80 students and a vision to bring quality education to Shigar Valley.</p>
+          </div>
         </div>
-        <div class="faculty-info">
-          <h4>Dr. Eleanor Vance</h4>
-          <span>Principal</span>
-        </div>
-      </article>
 
-      <!-- Teacher 2 -->
-      <article class="faculty-card scroll-reveal" style="transition-delay: 100ms;">
-        <div class="faculty-img">
-          <img src="./uns image/carter.jpg" alt="Vice Principal">
+        <div class="tl-item reveal reveal-delay-1">
+          <div class="tl-card">
+            <div class="tl-year">2015</div>
+            <h4>First Board Results</h4>
+            <p>Our inaugural matriculation class achieved a 100% pass rate, establishing our reputation for academic excellence.</p>
+          </div>
         </div>
-        <div class="faculty-info">
-          <h4>Prof. James Carter</h4>
-          <span>Head of Science</span>
-        </div>
-      </article>
 
-      <!-- Teacher 3 -->
-      <article class="faculty-card scroll-reveal" style="transition-delay: 200ms;">
-        <div class="faculty-img">
-          <img src="./uns image/TEACHER1.jpg" alt="Arts Head">
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-year">2018</div>
+            <h4>Campus Expansion</h4>
+            <p>A new science block, library, and sports complex were inaugurated, tripling the school's capacity to 600 students.</p>
+          </div>
         </div>
-        <div class="faculty-info">
-          <h4>Sarah Mitchell</h4>
-          <span>Head of Arts</span>
-        </div>
-      </article>
 
-      <!-- Teacher 4 -->
-      <article class="faculty-card scroll-reveal" style="transition-delay: 300ms;">
-        <div class="faculty-img">
-          <img src="./uns image/sport director.jpg" alt="Sports Director">
+        <div class="tl-item reveal reveal-delay-1">
+          <div class="tl-card">
+            <div class="tl-year">2021</div>
+            <h4>Technology Integration</h4>
+            <p>State-of-the-art computer labs and a robotics program were launched, bringing STEM education to Baltistan.</p>
+          </div>
         </div>
-        <div class="faculty-info">
-          <h4>Michael Ross</h4>
-          <span>Sports Director</span>
+
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-year">2024</div>
+            <h4>1,200 Students Strong</h4>
+            <p>Excel Public School now serves over 1,200 students, with 98% pass rates and a legacy of shaping future leaders.</p>
+          </div>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER (MATCHING HOME) -->
+  <!-- ================================================
+       FACULTY
+  ================================================= -->
+  <section class="faculty-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label">Leadership</span>
+        <h2 class="section-title">Meet Our Faculty</h2>
+        <p>Dedicated educators who inspire greatness every single day.</p>
+      </div>
+
+      <div class="faculty-grid">
+        <article class="faculty-card reveal">
+          <div class="faculty-photo">
+            <img src="./uns image/principle.jpg" alt="Principal" loading="lazy">
+            <div class="faculty-overlay"></div>
+            <div class="faculty-social">
+              <a href="#" aria-label="Email">✉</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+          <div class="faculty-info">
+            <h4>Dr. Eleanor Vance</h4>
+            <span class="role">Principal</span>
+          </div>
+        </article>
+
+        <article class="faculty-card reveal reveal-delay-1">
+          <div class="faculty-photo">
+            <img src="./uns image/carter.jpg" alt="Head of Science" loading="lazy">
+            <div class="faculty-overlay"></div>
+            <div class="faculty-social">
+              <a href="#" aria-label="Email">✉</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+          <div class="faculty-info">
+            <h4>Prof. James Carter</h4>
+            <span class="role">Head of Science</span>
+          </div>
+        </article>
+
+        <article class="faculty-card reveal reveal-delay-2">
+          <div class="faculty-photo">
+            <img src="./uns image/TEACHER1.jpg" alt="Head of Arts" loading="lazy">
+            <div class="faculty-overlay"></div>
+            <div class="faculty-social">
+              <a href="#" aria-label="Email">✉</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+          <div class="faculty-info">
+            <h4>Sarah Mitchell</h4>
+            <span class="role">Head of Arts</span>
+          </div>
+        </article>
+
+        <article class="faculty-card reveal reveal-delay-3">
+          <div class="faculty-photo">
+            <img src="./uns image/sport director.jpg" alt="Sports Director" loading="lazy">
+            <div class="faculty-overlay"></div>
+            <div class="faculty-social">
+              <a href="#" aria-label="Email">✉</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+          <div class="faculty-info">
+            <h4>Michael Ross</h4>
+            <span class="role">Sports Director</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CTA STRIP
+  ================================================= -->
+  <section class="cta-strip">
+    <div class="container">
+      <div class="cta-strip-inner reveal">
+        <h2>Ready to be part of<br>the <em>Excel Family?</em></h2>
+        <div class="cta-strip-btns">
+          <a href="./Admission.html" class="btn btn-white" style="background:#fff; color: var(--text-primary);">Apply for Admission</a>
+          <a href="./Contact.html" class="btn btn-ghost-white">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER — IDENTICAL TO INDEX
+  ================================================= -->
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
-          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
-          <!-- SOCIALS -->
-          <div class="social-links">
-            <a href="#" class="social-btn" aria-label="Facebook">
-              <svg viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
-            </a>
-            <a href="#" class="social-btn" aria-label="Twitter">
-              <svg viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.36-1.66.6-2.56.7.92-.55 1.62-1.4 1.95-2.42-.86.5-1.8.86-2.8 1.05-2.02-2.15-4.82-2.53-7.08-1.1-2.2 1.4-3.48 3.76-3.48 6.46 0 .5.06.98.15 1.46C7.69 13.09 4.07 11.13 1.64 8.15c-.55.94-.86 2.03-.86 3.2 0 1.57.8 2.95 2 3.77-.74-.02-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.38.1-.78.16-1.2.16-.3 0-.6-.03-.88-.08.6 1.8 2.26 3.12 4.25 3.16-1.56 1.22-3.52 1.94-5.66 1.94-.37 0-.73-.02-1.1-.06 2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.65 1.66-1.45 2.27-2.36z"/></svg>
-            </a>
-            <a href="#" class="social-btn" aria-label="Instagram">
-              <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0-2.16C8.75 0 8.33.01 7.05.07 2.7.27.27 2.7.07 7.05.01 8.33 0 8.75 0 12s.01 3.67.07 4.95c.2 4.35 2.62 6.78 6.98 6.98 1.28.06 1.7.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.7.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.25 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88z"/></svg>
-            </a>
-            <a href="#" class="social-btn" aria-label="YouTube">
-              <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.7-.8-2.4c-.7-.9-1.5-.9-1.9-1C17.7 2 12 2 12 2s-5.7 0-8.8.8c-.4.1-1.2.1-1.9 1C.7 4.6.5 6.2.5 6.2S0 8.1 0 10v4c0 1.9.5 3.8.5 3.8s.2 1.7.8 2.4c.7.9 1.6 1 2 1 2.9.7 12.2.7 12.2.7s5.7 0 8.8-.8c.4-.1 1.2-.1 1.9-1 .6-.7.8-2.4.8-2.4S24 15.9 24 14v-4c0-1.9-.5-3.8-.5-3.8z" fill="#FF0000"/></svg>
-            </a>
+        <div class="footer-brand footer-col">
+          <a href="index.html" class="footer-logo">Excel <span>Public School</span></a>
+          <p>A dedicated institution fostering intellectual curiosity, moral integrity, and global citizenship among its students since 2013.</p>
+          <div class="footer-social">
+            <a class="social-btn" href="#" aria-label="Facebook">f</a>
+            <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic">in</a>
+            <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+            <a class="social-btn" href="#" aria-label="YouTube">▶</a>
           </div>
         </div>
+
         <div class="footer-col">
           <h5>Academics</h5>
           <ul>
             <li><a href="#">Primary School</a></li>
             <li><a href="#">Middle School</a></li>
             <li><a href="#">High School</a></li>
-            <li><a href="#">Web Development Course</a></li>
+            <li><a href="#">Web Development</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Admissions</h5>
           <ul>
@@ -483,71 +1504,80 @@
             <li><a href="#">FAQs</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Contact</h5>
-          <ul>
-            <li>Mohallah Ahound Pura PO Tissar</li>
-            <li>District Shigar, Baltistan</li>
-            <li>+92 300 0000000</li>
-            <li>info@epstissargmail.edu</li>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>Mohallah Ahound Pura, Tissar<br>District Shigar, Baltistan</span></li>
+            <li><span>📞</span><span>+92 300 000 0000</span></li>
+            <li><span>✉️</span><span>info@excelpublicschool.edu</span></li>
           </ul>
         </div>
       </div>
-      <div class="text-center" style="font-size: 0.8rem; color: #555;">
-        &copy; 2024 Excel Public School. Designed for Excellence.
+
+      <div class="footer-bottom">
+        <span>© 2026 Excel Public School. Designed for Excellence.</span>
+        <div style="display:flex; gap:20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================= -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      // --- 1. NAVBAR SCROLL EFFECT (Same as Home/Contact) ---
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
+  (() => {
+    'use strict';
 
-      // --- 2. MOBILE MENU TOGGLE (Same as Home/Contact) ---
-      const toggleBtn = document.getElementById('mobile-toggle');
-      const navLinks = document.getElementById('nav-links');
-      
-      toggleBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
-      });
+    /* ── 1. THEME TOGGLE ─── */
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('eps-theme') || 'light';
+    html.setAttribute('data-theme', saved);
 
-      // --- 3. PARALLAX HERO EFFECT ---
-      const heroBg = document.getElementById('hero-bg');
-      window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        // Move background at 30% speed
-        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
-      });
-
-      // --- 4. SCROLL REVEAL ANIMATION ---
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      const scrollElements = document.querySelectorAll('.scroll-reveal');
-      scrollElements.forEach(el => observer.observe(el));
+    themeBtn.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('eps-theme', next);
     });
+
+    /* ── 2. NAVBAR ─── */
+    const navbar   = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('mobileDrawer');
+    const overlay   = document.getElementById('navOverlay');
+
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const openDrawer  = () => { hamburger.classList.add('open'); drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const closeDrawer = () => { hamburger.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; };
+
+    hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+    overlay.addEventListener('click', closeDrawer);
+
+    /* ── 3. PARALLAX HERO ─── */
+    const heroBg = document.getElementById('heroBg');
+    if (heroBg) {
+      window.addEventListener('scroll', () => {
+        heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.25}px)`;
+      }, { passive: true });
+    }
+
+    /* ── 4. SCROLL REVEAL ─── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  })();
   </script>
 </body>
 </html>

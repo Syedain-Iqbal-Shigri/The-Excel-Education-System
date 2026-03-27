@@ -1,325 +1,942 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Academics — Excel Public School</title>
-  <meta name="description" content="Academic journey and curriculum at Excel Public School from Primary to High School.">
+  <meta name="description" content="Academic journey and curriculum at Excel Public School from Primary to High School. Holistic learning, STEM, and arts integrated.">
 
-  <!-- Premium Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+  <!-- Fonts: Cormorant Garamond (luxury display) + DM Sans (clean body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. CORE VARIABLES (MATCHING HOME/CONTACT) --- */
+    /* =====================================================
+       DESIGN SYSTEM — CSS VARIABLES (LIGHT + DARK THEME)
+    ===================================================== */
     :root {
-      --bg-cream: #F9F8F4;
-      --bg-card: #FFFFFF;
-      --bg-dark: #1C1C1C;
-      
-      --text-main: #2C2C2C;
-      --text-muted: #666666;
-      --text-light: #E0E0E0;
-      
-      --accent: #C5A059; /* Antique Gold */
-      --accent-hover: #A08040;
-      
-      --radius: 4px;
-      --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-      --shadow-float: 0 20px 40px rgba(0,0,0,0.08);
-      
-      --container: 1280px;
-      --nav-height: 80px;
-      --easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* Light Mode Palette */
+      --bg-primary:    #F7F5EF;
+      --bg-secondary:  #FFFFFF;
+      --bg-tertiary:   #EFECE3;
+      --bg-dark:       #161616;
+      --bg-dark-2:     #1E1E1E;
+
+      --text-primary:  #1A1A1A;
+      --text-secondary:#4A4A4A;
+      --text-muted:    #888888;
+      --text-inverse:  #F7F5EF;
+
+      --accent:        #B8963E;
+      --accent-light:  #D4AF6A;
+      --accent-dark:   #8C6E28;
+      --accent-tint:   rgba(184, 150, 62, 0.1);
+
+      --border:        rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.04);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.06);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.08);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.10);
+
+      --nav-bg:        rgba(247, 245, 239, 0.92);
+      --nav-bg-init:   transparent;
+      --nav-height:    84px;
+      --nav-shrink:    68px;
+
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  16px;
+
+      --container:  1320px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* --- 2. RESET & TYPOGRAPHY --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { scroll-behavior: smooth; }
-    
+    [data-theme="dark"] {
+      --bg-primary:    #111111;
+      --bg-secondary:  #1A1A1A;
+      --bg-tertiary:   #222222;
+      --bg-dark:       #0A0A0A;
+      --bg-dark-2:     #141414;
+
+      --text-primary:  #F0EDE6;
+      --text-secondary:#B0AA9F;
+      --text-muted:    #666666;
+      --text-inverse:  #111111;
+
+      --accent:        #C9A84C;
+      --accent-light:  #E0C070;
+      --accent-dark:   #A07830;
+      --accent-tint:   rgba(201, 168, 76, 0.12);
+
+      --border:        rgba(255, 255, 255, 0.07);
+      --border-strong: rgba(255, 255, 255, 0.14);
+
+      --shadow-xs:     0 2px 8px  rgba(0,0,0,0.3);
+      --shadow-sm:     0 8px 24px rgba(0,0,0,0.4);
+      --shadow-md:     0 16px 40px rgba(0,0,0,0.5);
+      --shadow-lg:     0 30px 60px rgba(0,0,0,0.6);
+
+      --nav-bg:        rgba(17, 17, 17, 0.94);
+    }
+
+    /* =====================================================
+       RESET + BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
     body {
-      font-family: 'Lato', sans-serif;
-      background-color: var(--bg-cream);
-      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition), color var(--transition);
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
     }
 
-    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
-    ul { list-style: none; }
+    a { text-decoration: none; color: inherit; transition: color var(--transition); }
+    ul  { list-style: none; }
     img { max-width: 100%; display: block; }
-    
-    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
-    .text-center { text-align: center; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 
-    /* --- 3. OPTIMIZED NAVBAR (IDENTICAL TO HOME/CONTACT) --- */
-    header {
-      position: fixed; top: 0; left: 0; width: 100%;
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-padding { padding: 110px 0; }
+
+    /* =====================================================
+       TYPOGRAPHY UTILITIES
+    ===================================================== */
+    .label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      font-weight: 300;
+    }
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost-white {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      background: transparent;
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--text-primary);
+    }
+    .btn-white:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1rem;
+      transition: transform var(--transition);
+    }
+    .btn-arrow:hover::after { transform: translateX(4px); }
+
+    /* =====================================================
+       NAVBAR — IDENTICAL TO INDEX
+    ===================================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
       height: var(--nav-height);
       z-index: 1000;
-      transition: all 0.4s ease;
-      background: transparent; /* Starts transparent */
+      background: transparent;
+      transition: height var(--transition), background var(--transition), box-shadow var(--transition);
     }
 
-    header.scrolled {
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      height: 70px; /* Shrinks slightly on scroll */
+    #navbar.scrolled {
+      height: var(--nav-shrink);
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 1px 0 var(--border), var(--shadow-xs);
     }
-    
-    .nav-flex { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-    
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-main);
+
+    .nav-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 40px;
+      max-width: var(--container);
+      margin: 0 auto;
     }
-    
-    .logo-img {
-      height: 50px;
-      width: auto;
-      display: block;
-      transition: height 0.3s;
-    }
-    
-    header.scrolled .logo-img { height: 40px; }
 
-    /* Desktop Nav */
-    .nav-links { display: flex; gap: 30px; }
-    
-    .nav-links a {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      transition: height var(--transition);
+    }
+
+    #navbar.scrolled .nav-logo img { height: 38px; }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--text-primary);
+      transition: color var(--transition);
+    }
+
+    /* On transparent header, show white text */
+    #navbar:not(.scrolled) .nav-logo-text strong { color: #fff; }
+
+    .nav-logo-text span {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* Desktop Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
       position: relative;
+      transition: color var(--transition), background var(--transition);
     }
-    
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-      background: var(--accent); transition: width 0.3s;
-    }
-    .nav-links a:hover::after { width: 100%; }
+
+    #navbar:not(.scrolled) .nav-links a { color: rgba(255,255,255,0.88); }
+    #navbar:not(.scrolled) .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .nav-links a:hover { background: var(--accent-tint); color: var(--accent); }
     .nav-links a.active { color: var(--accent); }
 
-    /* Mobile Toggle */
-    .mobile-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--text-main);
-      z-index: 1002;
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 14px; right: 14px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
     }
 
-    /* --- 4. PARALLAX HERO --- */
-    .page-header {
-      position: relative;
-      height: 70vh;
-      min-height: 600px;
+    /* Nav Right — theme toggle + CTA */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      color: white;
+      background: var(--accent-tint);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    #navbar:not(.scrolled) .theme-toggle {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    #navbar:not(.scrolled) .hamburger span { background: #fff; }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(85vw, 320px);
+      height: 100dvh;
+      background: var(--bg-secondary);
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      box-shadow: var(--shadow-lg);
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open { transform: translateX(0); }
+
+    .mobile-drawer a {
+      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition);
+    }
+
+    .mobile-drawer a:hover { color: var(--accent); }
+    .mobile-drawer a:last-child { border-bottom: none; }
+    .mobile-drawer a::after { content: '→'; opacity: 0.4; font-size: 1.1rem; }
+
+    /* Overlay */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* =====================================================
+       PAGE HERO — PARALLAX (Academics specific)
+    ===================================================== */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
       overflow: hidden;
-      margin-bottom: 80px;
     }
-    
-    /* The Parallax Image Layer */
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000') center/cover no-repeat;
-      z-index: 1;
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000') center / cover no-repeat;
       will-change: transform;
+      z-index: 0;
+      transform: scale(1.1);
     }
 
-    .hero-overlay {
+    .page-hero-overlay {
       position: absolute; inset: 0;
-      background: rgba(28, 28, 28, 0.5); /* Dark overlay */
+      background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.80) 0%,
+        rgba(10,8,5,0.35) 55%,
+        rgba(10,8,5,0.20) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Grain overlay */
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
       z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
     }
 
-    .hero-content { position: relative; z-index: 3; max-width: 800px; padding: 0 20px; animation: fadeInDown 1s ease-out; }
-    .hero-content h1 { font-size: 4rem; margin-bottom: 20px; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-    .hero-content p { font-size: 1.2rem; font-weight: 300; color: rgba(255,255,255,0.9); }
-    .breadcrumbs { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 15px; }
-
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* --- 5. PHILOSOPHY --- */
-    .philosophy { padding-bottom: 100px; text-align: center; }
-    .philosophy h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--bg-dark); }
-    .philosophy p { color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
-
-    /* --- 6. STATS STRIP --- */
-    .stats-strip {
-      background: var(--bg-dark); color: white;
-      padding: 80px 0; margin-bottom: 100px;
+    .page-hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 40px 64px;
+      max-width: var(--container);
+      margin: 0 auto;
+      width: 100%;
+      animation: heroSlideUp 0.9s ease-out both;
     }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb span { color: var(--accent-light); }
+    .breadcrumb::before { content: '—'; color: var(--accent); }
+
+    .page-hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      line-height: 1.05;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      max-width: 700px;
+    }
+
+    .page-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 16px;
+      font-weight: 300;
+      max-width: 500px;
+    }
+
+    @keyframes heroSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       PHILOSOPHY SECTION
+    ===================================================== */
+    .philosophy {
+      padding: 110px 0 60px;
+      text-align: center;
+      background: var(--bg-primary);
+    }
+
+    .philosophy h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 24px;
+    }
+
+    .philosophy p {
+      color: var(--text-secondary);
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* =====================================================
+       STATS STRIP
+    ===================================================== */
+    .stats-section {
+      padding: 80px 0;
+      background: var(--bg-dark);
+    }
+
     .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
     }
-    .stat-item { padding: 20px; transition: transform 0.3s; }
-    .stat-item:hover { transform: translateY(-5px); }
-    .stat-item span { display: block; font-size: 3rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 10px; }
-    .stat-item p { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; color: #ccc; }
 
-    /* --- 7. ACADEMIC LEVELS GRID --- */
-    .levels-section { padding-bottom: 120px; }
-    
+    .stat-item {
+      padding: 48px 32px;
+      text-align: center;
+      background: var(--bg-dark);
+      transition: background var(--transition);
+    }
+
+    .stat-item:hover { background: var(--bg-dark-2); }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      font-weight: 500;
+    }
+
+    /* =====================================================
+       ACADEMIC LEVELS GRID
+    ===================================================== */
+    .levels-section {
+      padding: 110px 0;
+      background: var(--bg-primary);
+    }
+
     .levels-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 40px;
     }
 
     .level-card {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
       overflow: hidden;
-      display: flex; flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.02);
-      transition: transform 0.5s var(--easing), box-shadow 0.5s var(--easing);
-      opacity: 0; /* Hidden initially */
-      transform: translateY(40px);
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
     }
-    
-    /* Staggered Animation Delays */
-    .level-card:nth-child(1) { transition-delay: 100ms; }
-    .level-card:nth-child(2) { transition-delay: 200ms; }
-    .level-card:nth-child(3) { transition-delay: 300ms; }
-    .level-card:nth-child(4) { transition-delay: 400ms; }
-
-    .level-card.visible { opacity: 1; transform: translateY(0); }
 
     .level-card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-float);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
     }
 
-    .card-img { height: 250px; overflow: hidden; position: relative; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--easing); }
-    .level-card:hover .card-img img { transform: scale(1.1); }
+    .card-img {
+      height: 240px;
+      overflow: hidden;
+    }
 
-    .card-body { padding: 35px; flex: 1; display: flex; flex-direction: column; }
-    .card-body h3 { font-size: 1.6rem; margin-bottom: 12px; }
-    .card-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
-    
-    .feature-list { margin-bottom: 25px; border-top: 1px solid #f0f0f0; padding-top: 20px; }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .level-card:hover .card-img img {
+      transform: scale(1.06);
+    }
+
+    .card-body {
+      padding: 32px 28px;
+    }
+
+    .card-body h3 {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .card-body p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      margin: 20px 0 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
     .feature-list li {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 10px; font-size: 0.9rem; color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
     }
+
     .feature-list li::before {
-      content: '•'; color: var(--accent); font-size: 1.5rem; line-height: 0; font-weight: bold;
+      content: "✨";
+      color: var(--accent);
+      font-size: 0.8rem;
     }
 
     .card-link {
-      margin-top: auto;
-      font-weight: 700; color: var(--text-main);
-      display: inline-flex; align-items: center; gap: 8px;
-      text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.3s, color 0.3s;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap var(--transition);
     }
-    .level-card:hover .card-link { color: var(--accent); border-color: var(--accent); }
 
-    /* --- 8. INQUIRY SECTION --- */
+    .card-link:hover { gap: 12px; }
+
+    /* =====================================================
+       INQUIRY SECTION
+    ===================================================== */
     .inquiry-section {
-      background: white;
-      border-top: 1px solid #eee;
-      padding: 120px 0;
+      padding: 110px 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
+
     .inquiry-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
     }
-    .inquiry-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
-    .inquiry-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; }
-    
-    .inquiry-form input, .inquiry-form select {
-      width: 100%; padding: 18px; margin-bottom: 20px;
-      background: var(--bg-cream); border: 1px solid #e0e0e0;
-      border-radius: var(--radius); font-family: 'Lato', sans-serif; font-size: 1rem;
-      transition: all 0.3s;
+
+    .inquiry-text h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 20px;
     }
-    .inquiry-form input:focus, .inquiry-form select:focus {
-      outline: none; border-color: var(--accent);
-      background: white; box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+
+    .inquiry-text p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 28px;
+      line-height: 1.8;
     }
+
+    .inquiry-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      padding-left: 24px;
+      margin-top: 24px;
+    }
+
+    .inquiry-form input,
+    .inquiry-form select {
+      width: 100%;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      transition: all var(--transition);
+    }
+
+    .inquiry-form input:focus,
+    .inquiry-form select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-tint);
+    }
+
     .inquiry-form button {
-      width: 100%; padding: 20px; border: none;
-      background: var(--text-main); color: white; font-weight: 700; font-size: 1rem;
-      letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
-      transition: 0.3s;
+      width: 100%;
+      padding: 16px;
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border: none;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      cursor: pointer;
     }
-    .inquiry-form button:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-    /* --- 9. FOOTER (CONSISTENT) --- */
-    footer { background-color: #1A1A1A; color: #888; padding: 100px 0 40px; font-size: 0.9rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; margin-bottom: 40px; }
-    .footer-logo { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; margin-bottom: 20px; display: block; }
-    .footer-col h5 { color: white; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; font-size: 0.85rem; }
-    .footer-col ul li { margin-bottom: 12px; }
-    .footer-col a:hover { color: var(--accent); margin-left: 5px; }
+    .inquiry-form button:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
 
-    /* --- RESPONSIVE --- */
-    @media (max-width: 1024px) {
-      .hero-content h1 { font-size: 3rem; }
+    /* =====================================================
+       FOOTER — IDENTICAL TO INDEX
+    ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.45);
+      padding: 90px 0 36px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1.1fr;
+      gap: 60px;
+      padding-bottom: 64px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #F0EDE6;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand .footer-logo span { color: var(--accent); }
+
+    .footer-brand p {
+      line-height: 1.85;
+      max-width: 280px;
+      font-size: 0.88rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      transition: all var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .footer-col h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 22px;
+    }
+
+    .footer-col ul li { margin-bottom: 11px; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      transition: all var(--transition);
+      font-size: 0.88rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+      padding-left: 6px;
+    }
+
+    .footer-contact li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      align-items: flex-start;
+    }
+
+    .footer-contact li + li { margin-top: 10px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* =====================================================
+       SCROLL REVEAL ANIMATION
+    ===================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1100px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .inquiry-grid { grid-template-columns: 1fr; gap: 48px; }
     }
 
     @media (max-width: 900px) {
-      /* MOBILE NAV (Matching Home) */
-      .mobile-toggle { display: block; }
-      
-      .nav-links {
-        position: fixed; top: 0; right: 0;
-        height: 100vh; width: 80%; max-width: 300px;
-        background: white;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-      }
-      
-      .nav-links.active { transform: translateX(0); }
-      
-      .inquiry-grid { grid-template-columns: 1fr; }
-      .hero-content h1 { font-size: 2.5rem; }
+      .levels-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-height: 72px; --nav-shrink: 60px; }
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-right .btn { display: none; }
+      .hamburger { display: flex; }
+
+      .page-hero-content { padding: 0 20px 48px; }
+      .levels-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       NAVBAR — IDENTICAL TO INDEX
+  ================================================= -->
   <header id="navbar">
-    <div class="container nav-flex">
-      <a href="index.html" class="logo">
-        <img src="./school img/logo.png" alt="Excel Public School Logo" class="logo-img">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="./school img/logo.png" alt="Excel Public School">
+        <div class="nav-logo-text">
+          <strong>Excel Public School</strong>
+          <span>Est. 2013 · Shigar, Baltistan</span>
+        </div>
       </a>
-      
-      <nav class="nav-links" id="nav-links">
+
+      <nav class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
         <a href="./About.html">About</a>
         <a href="./Academics.html" class="active">Academics</a>
@@ -328,167 +945,213 @@
         <a href="./Admission.html">Admissions</a>
         <a href="./Contact.html">Contact</a>
       </nav>
-      
-      <button class="mobile-toggle" id="mobile-toggle">☰</button>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
+        <a href="./Admission.html" class="btn btn-primary" style="padding: 10px 22px; font-size: 0.72rem;">
+          Apply Now
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- PARALLAX HERO -->
-  <section class="page-header">
-    <div class="hero-bg" id="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    
-    <div class="hero-content">
-      <span class="breadcrumbs">Home / Academics</span>
-      <h1>The Academic Journey</h1>
-      <p>A structured path to excellence, nurturing students from their first steps to university gates.</p>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="./About.html">About</a>
+    <a href="./Academics.html">Academics</a>
+    <a href="./Courses.html">Courses</a>
+    <a href="./Events.html">Events</a>
+    <a href="./Admission.html">Admissions</a>
+    <a href="./Contact.html">Contact</a>
+  </div>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ================================================
+       PAGE HERO — PARALLAX
+  ================================================= -->
+  <section class="page-hero">
+    <div class="page-hero-bg" id="heroBg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">Home <span>Academics</span></div>
+      <h1>The Academic<br><em>Journey</em></h1>
+      <p class="page-hero-sub">A structured path to excellence, nurturing students from their first steps to university gates.</p>
     </div>
   </section>
 
-  <!-- PHILOSOPHY -->
+  <!-- ================================================
+       PHILOSOPHY
+  ================================================= -->
   <section class="philosophy">
     <div class="container">
-      <h2>Excellence at Every Stage</h2>
+      <span class="label">Our Approach</span>
+      <h2 class="section-title">Excellence at Every Stage</h2>
       <p>Our curriculum is designed to challenge, inspire, and prepare. We blend traditional values with modern innovation to create a learning environment like no other, fostering curiosity and resilience.</p>
     </div>
   </section>
 
-  <!-- STATS STRIP -->
-  <div class="stats-strip">
-    <div class="container stats-grid">
-      <div class="stat-item">
-        <span>120+</span>
-        <p>Years of Legacy</p>
-      </div>
-      <div class="stat-item">
-        <span>12:1</span>
-        <p>Student Ratio</p>
-      </div>
-      <div class="stat-item">
-        <span>100%</span>
-        <p>University Placement</p>
-      </div>
-      <div class="stat-item">
-        <span>50+</span>
-        <p>Campus Clubs</p>
+  <!-- ================================================
+       STATS STRIP
+  ================================================= -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="12">0</span>
+          <span class="stat-label">Years of Legacy</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <span class="stat-number" data-target="12">0</span>
+          <span class="stat-label">Student Ratio</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <span class="stat-number" data-target="100">0</span>
+          <span class="stat-label">University Placement</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <span class="stat-number" data-target="50">0</span>
+          <span class="stat-label">Campus Clubs</span>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- MAIN ACADEMIC LEVELS -->
-  <main class="container levels-section">
-    <div class="levels-grid">
-      
-      <!-- Primary -->
-      <article class="level-card scroll-reveal">
-        <div class="card-img">
-          <img src="./uns image/hero.jpg" alt="Primary School">
-        </div>
-        <div class="card-body">
-          <h3>Primary School</h3>
-          <p>Grades 1-5. Building a strong foundation through play-based learning and core skill development.</p>
-          <ul class="feature-list">
-            <li>Individual Attention</li>
-            <li>Focus on Literacy & Numeracy</li>
-            <li>Creative Arts Integration</li>
-          </ul>
-          <a href="#" class="card-link">Learn More &rarr;</a>
-        </div>
-      </article>
+  <!-- ================================================
+       ACADEMIC LEVELS
+  ================================================= -->
+  <main class="levels-section">
+    <div class="container">
+      <div class="levels-grid">
+        <!-- Primary -->
+        <article class="level-card reveal">
+          <div class="card-img">
+            <img src="./uns image/hero.jpg" alt="Primary School" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>Primary School</h3>
+            <p>Grades 1-5. Building a strong foundation through play-based learning and core skill development.</p>
+            <ul class="feature-list">
+              <li>Individual Attention</li>
+              <li>Focus on Literacy & Numeracy</li>
+              <li>Creative Arts Integration</li>
+            </ul>
+            <a href="#" class="card-link">Learn More →</a>
+          </div>
+        </article>
 
-      <!-- Middle -->
-      <article class="level-card scroll-reveal">
-        <div class="card-img">
-          <img src="./uns image/middle school.jpg">
-        </div>
-        <div class="card-body">
-          <h3>Middle School</h3>
-          <p>Grades 6-8. Expanding horizons with subject specialization and critical thinking challenges.</p>
-          <ul class="feature-list">
-            <li>Intro to STEM</li>
-            <li>Leadership Programs</li>
-            <li>Community Service</li>
-          </ul>
-          <a href="#" class="card-link">Learn More &rarr;</a>
-        </div>
-      </article>
+        <!-- Middle -->
+        <article class="level-card reveal reveal-delay-1">
+          <div class="card-img">
+            <img src="./uns image/middle school.jpg" alt="Middle School" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>Middle School</h3>
+            <p>Grades 6-8. Expanding horizons with subject specialization and critical thinking challenges.</p>
+            <ul class="feature-list">
+              <li>Intro to STEM</li>
+              <li>Leadership Programs</li>
+              <li>Community Service</li>
+            </ul>
+            <a href="#" class="card-link">Learn More →</a>
+          </div>
+        </article>
 
-      <!-- High School -->
-      <article class="level-card scroll-reveal">
-        <div class="card-img">
-          <img src="./uns image/high school.jpg" alt="High School">
-        </div>
-        <div class="card-body">
-          <h3>High School</h3>
-          <p>Grades 9-12. Rigorous preparation for global universities and future leadership roles.</p>
-          <ul class="feature-list">
-            <li>Advanced Placement (AP)</li>
-            <li>Career Counseling</li>
-            <li>Global Exchange Programs</li>
-          </ul>
-          <a href="#" class="card-link">Learn More &rarr;</a>
-        </div>
-      </article>
+        <!-- High School -->
+        <article class="level-card reveal reveal-delay-2">
+          <div class="card-img">
+            <img src="./uns image/high school.jpg" alt="High School" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>High School</h3>
+            <p>Grades 9-12. Rigorous preparation for global universities and future leadership roles.</p>
+            <ul class="feature-list">
+              <li>Advanced Placement (AP)</li>
+              <li>Career Counseling</li>
+              <li>Global Exchange Programs</li>
+            </ul>
+            <a href="#" class="card-link">Learn More →</a>
+          </div>
+        </article>
 
-      <!-- Co-Curricular -->
-      <article class="level-card scroll-reveal">
-        <div class="card-img">
-          <img src="./uns image/beyong classroom.jpg" alt="Sports & Arts">
-        </div>
-        <div class="card-body">
-          <h3>Beyond Classroom</h3>
-          <p>Sports, Arts, and Technology. We believe holistic growth happens outside of textbooks.</p>
-          <ul class="feature-list">
-            <li>Olympic Sports Complex</li>
-            <li>State-of-the-Art Labs</li>
-            <li>Performing Arts Centre</li>
-          </ul>
-          <a href="#" class="card-link">Learn More &rarr;</a>
-        </div>
-      </article>
-
+        <!-- Co-Curricular -->
+        <article class="level-card reveal reveal-delay-3">
+          <div class="card-img">
+            <img src="./uns image/beyong classroom.jpg" alt="Beyond Classroom" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>Beyond Classroom</h3>
+            <p>Sports, Arts, and Technology. We believe holistic growth happens outside of textbooks.</p>
+            <ul class="feature-list">
+              <li>Olympic Sports Complex</li>
+              <li>State-of-the-Art Labs</li>
+              <li>Performing Arts Centre</li>
+            </ul>
+            <a href="#" class="card-link">Learn More →</a>
+          </div>
+        </article>
+      </div>
     </div>
   </main>
 
-  <!-- INQUIRY SECTION -->
+  <!-- ================================================
+       INQUIRY SECTION
+  ================================================= -->
   <section class="inquiry-section">
     <div class="container inquiry-grid">
-      <div class="inquiry-text">
-        <h2>Start Your Journey</h2>
+      <div class="inquiry-text reveal">
+        <span class="label">Start Your Journey</span>
+        <h2 class="section-title">Begin the Path<br>to Excellence</h2>
         <p>Admissions are open for the upcoming academic year. Fill out the inquiry form to receive our prospectus and schedule a campus visit.</p>
-        <p style="color: var(--accent); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.4rem;">"Education is the most powerful weapon which you can use to change the world."</p>
+        <div class="inquiry-quote">"Education is the most powerful weapon which you can use to change the world."</div>
       </div>
-      <form class="inquiry-form">
-        <input type="text" placeholder="Student Name">
-        <input type="email" placeholder="Parent Email Address">
-        <select>
+      <form class="inquiry-form reveal reveal-delay-1">
+        <input type="text" placeholder="Student Name" required>
+        <input type="email" placeholder="Parent Email Address" required>
+        <select required>
+          <option value="">Select Admission Level</option>
           <option>Primary Admission</option>
           <option>Middle School Admission</option>
           <option>High School Admission</option>
           <option>General Inquiry</option>
         </select>
-        <button type="submit">Send Inquiry</button>
+        <button type="submit">Send Inquiry →</button>
       </form>
     </div>
   </section>
 
-  <!-- FOOTER (MATCHING HOME) -->
+  <!-- ================================================
+       FOOTER — IDENTICAL TO INDEX
+  ================================================= -->
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <a href="#" class="footer-logo">The Excel Education <span>System</span></a>
-          <p style="line-height: 1.8;">A century-old institution dedicated to fostering intellectual curiosity, moral integrity, and global citizenship among its students.</p>
+        <div class="footer-brand footer-col">
+          <a href="index.html" class="footer-logo">Excel <span>Public School</span></a>
+          <p>A dedicated institution fostering intellectual curiosity, moral integrity, and global citizenship among its students since 2013.</p>
+          <div class="footer-social">
+            <a class="social-btn" href="#" aria-label="Facebook">f</a>
+            <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic">in</a>
+            <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+            <a class="social-btn" href="#" aria-label="YouTube">▶</a>
+          </div>
         </div>
+
         <div class="footer-col">
           <h5>Academics</h5>
           <ul>
             <li><a href="#">Primary School</a></li>
             <li><a href="#">Middle School</a></li>
             <li><a href="#">High School</a></li>
-            <li><a href="#">Web Development Course</a></li>
+            <li><a href="#">Web Development</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Admissions</h5>
           <ul>
@@ -498,71 +1161,102 @@
             <li><a href="#">FAQs</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h5>Contact</h5>
-          <ul>
-            <li>123 Scholar's Lane</li>
-            <li>Shigar, Baltistan 16000</li>
-            <li>+92 300 0000000</li>
-            <li>info@epstissargmail.edu</li>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>Mohallah Ahound Pura, Tissar<br>District Shigar, Baltistan</span></li>
+            <li><span>📞</span><span>+92 300 000 0000</span></li>
+            <li><span>✉️</span><span>info@excelpublicschool.edu</span></li>
           </ul>
         </div>
       </div>
-      <div class="text-center" style="font-size: 0.8rem; color: #555;">
-        &copy; 2024 Excel Public School. Designed for Excellence.
+
+      <div class="footer-bottom">
+        <span>© 2026 Excel Public School. Designed for Excellence.</span>
+        <div style="display:flex; gap:20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT (OPTIMIZED & MATCHING HOME) -->
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================= -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      // --- 1. NAVBAR SCROLL EFFECT (Same as Home/Contact) ---
+    (() => {
+      'use strict';
+
+      /* ── 1. THEME TOGGLE ─────────────────────────── */
+      const html = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('eps-theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('eps-theme', next);
+      });
+
+      /* ── 2. NAVBAR ───────────────────────────────── */
       const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
+      const hamburger = document.getElementById('hamburger');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const navOverlay = document.getElementById('navOverlay');
 
-      // --- 2. MOBILE MENU TOGGLE (Same as Home/Contact) ---
-      const toggleBtn = document.getElementById('mobile-toggle');
-      const navLinks = document.getElementById('nav-links');
-      
-      toggleBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        toggleBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
-      });
-
-      // --- 3. PARALLAX HERO EFFECT ---
-      const heroBg = document.getElementById('hero-bg');
-      window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        // Move background at 30% speed
-        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
-      });
-
-      // --- 4. SCROLL REVEAL ANIMATION ---
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+      const handleScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
       };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+      const openDrawer = () => { hamburger.classList.add('open'); mobileDrawer.classList.add('open'); navOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+      const closeDrawer = () => { hamburger.classList.remove('open'); mobileDrawer.classList.remove('open'); navOverlay.classList.remove('open'); document.body.style.overflow = ''; };
+      hamburger.addEventListener('click', () => mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer());
+      navOverlay.addEventListener('click', closeDrawer);
+
+      /* ── 3. PARALLAX HERO ────────────────────────── */
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) {
+        window.addEventListener('scroll', () => {
+          heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.25}px)`;
+        }, { passive: true });
+      }
+
+      /* ── 4. STATS COUNTER ────────────────────────── */
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          const target = +el.dataset.target;
+          const suffix = target === 100 ? '%' : '+';
+          const duration = 1800;
+          const step = target / (duration / 16);
+          let current = 0;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = Math.round(current) + suffix;
+            if (current >= target) clearInterval(timer);
+          }, 16);
+          countObserver.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('[data-target]').forEach(el => countObserver.observe(el));
+
+      /* ── 5. SCROLL REVEAL ────────────────────────── */
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            revealObserver.unobserve(e.target);
           }
         });
-      }, observerOptions);
-
-      const scrollElements = document.querySelectorAll('.scroll-reveal');
-      scrollElements.forEach(el => observer.observe(el));
-    });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    })();
   </script>
 </body>
 </html>
